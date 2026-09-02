@@ -32,6 +32,7 @@
 
 - First pass — P2: 轮播计数使用 `01 / 04`，会与站点页码测试产生歧义。Fix: 改为 `01 — 04`，保留清晰状态表达。Post-fix evidence: 自动化测试通过，轮播状态正确更新。
 - First pass — P2: 手机端章节结构较长，需要确认轮播按钮不会溢出。Fix: 390px 下改为两列控制按钮、状态与放大按钮独占整行。Post-fix evidence: `04-carousel-mobile.png`，页面 scrollWidth 375 小于 viewport 390。
+- CTA refinement — P2: 原“打开 AccentGuide”是普通文本链接，入口辨识度不足。Fix: 改为陶土红高对比按钮，加入“网站成果 / LIVE SITE”、外链图标、淡黄硬投影与 hover/focus 状态。Post-fix evidence: 更新后的 `02-project05-desktop.png`；按钮 105 × 44 px，链接与新标签页行为保持正确。
 - Final comparison: 无未解决的 P0/P1/P2。Project 05 在保持 04 视觉系统的同时，用 0→1、二维码和学习产品数据形成自己的信息重点。
 - P3: 共用 `assets/js/vendor.js` 仍产生 Tailwind CDN 的既有警告；该文件属于全站公共运行时，不在本次单页修改范围。
 

@@ -99,7 +99,32 @@
         .qr-wrap { display: grid; grid-template-columns: 88px 1fr; gap: 16px; align-items: center; }
         .qr-wrap img { width: 88px; border: 1px solid var(--rule); }
         .qr-copy { color: var(--muted); font-size: 12px; line-height: 1.55; }
-        .qr-copy a { color: var(--navy); font-weight: 800; text-underline-offset: 3px; }
+        .qr-overline { margin-bottom: 9px; color: var(--red); font: 800 8px/1.4 var(--mono); letter-spacing: .12em; }
+        .accent-cta {
+            min-height: 44px;
+            padding: 10px 13px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--paper);
+            background: var(--red);
+            border: 1px solid var(--red);
+            box-shadow: 5px 5px 0 var(--yellow);
+            font: 800 10px/1 var(--mono);
+            letter-spacing: .08em;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: color .18s ease, background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+        }
+        .accent-cta iconify-icon { font-size: 17px; }
+        .accent-cta:hover, .accent-cta:focus-visible {
+            color: var(--paper);
+            background: var(--navy);
+            border-color: var(--navy);
+            transform: translate(-2px, -2px);
+            box-shadow: 7px 7px 0 var(--yellow);
+        }
         .metrics { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
         .metric { min-height: 168px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--rule); }
         .metric:last-child { border-right: 0; }
@@ -239,7 +264,7 @@
         <aside class="hero-aside" aria-label="项目核心成果">
             <div class="hand-note">“不会写代码，<br>也可以先把问题定义清楚。”</div>
             <div><div class="hero-number display">0→1</div><div class="hero-number-label">FROM CAPSTONE<br>TO LIVE PRODUCT</div></div>
-            <div class="qr-wrap"><img src="../assets/img/project-05-01.png" alt="AccentGuide 网站体验二维码"><div class="qr-copy">网站成果<br><a href="https://moffym.github.io/Accent-guide/" target="_blank" rel="noopener">打开 AccentGuide</a></div></div>
+            <div class="qr-wrap"><img src="../assets/img/project-05-01.png" alt="AccentGuide 网站体验二维码"><div class="qr-copy"><div class="qr-overline">网站成果 / LIVE SITE</div><a class="accent-cta" href="https://moffym.github.io/Accent-guide/" target="_blank" rel="noopener"><span>查看线上成果</span><iconify-icon icon="solar:arrow-up-right-linear" aria-hidden="true"></iconify-icon></a></div></div>
         </aside>
     </section>
 

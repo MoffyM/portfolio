@@ -224,6 +224,8 @@ def validate_project_05_case_study(html):
     assert "ArrowLeft" in html and "ArrowRight" in html, "project-05 keyboard carousel"
     assert 'id="evidence-lightbox"' in html and 'aria-modal="true"' in html, "project-05 lightbox"
     assert "Escape" in html and "prefers-reduced-motion" in html, "project-05 accessible motion"
+    assert 'class="accent-cta"' in html, "project-05 prominent live-site CTA"
+    assert "查看线上成果" in html and "solar:arrow-up-right-linear" in html, "project-05 CTA guidance"
 
 
 def assert_rejects_mutation(name, expected_message, check):
