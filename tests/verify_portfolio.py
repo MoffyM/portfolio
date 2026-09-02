@@ -18,7 +18,6 @@ EXPECTED_TITLES = [
 LEGACY_PAGE_FINGERPRINTS = {
     "02": "9546ca62c1ea15aa242f086ecf831fc2f8fef8506cea3a079e7ecb0dab7821ad",
     "03": "fdfc0c00cfed29309a0affbbe1c32a3a19b24bc53742c5d0d4a1fea3de5ec9b2",
-    "04": "d6c923032dccde99c7ead55cb063a7df9316b9a5f660b40db8d746b49ae207de",
     "05": "3d67e812f4950c12630a453d014f2d9cd78cd55e13c0e7363c73713b2d28dca2",
     "06": "61835c7dbb0df71bb9d974f923f380fdc5d821fd464ef8029d3351f86460a9c5",
 }
@@ -192,6 +191,23 @@ def validate_project_page(html, number, title, expected_fingerprint=None):
         assert normalized_sha256(html) == expected_fingerprint, f"legacy content project-{number}.html"
 
 
+def validate_project_04_case_study(html):
+    required_text = [
+        "53,000+", "8 人", "2 个项目", "100% 按期交付", "13 个里程碑",
+        "1,240", "标准前置", "看板驱动", "三维审核", "风险早判",
+    ]
+    for text in required_text:
+        assert text in html, f"project-04 evidence: {text}"
+
+    assert 'data-case-study="project-04"' in html, "project-04 case study root"
+    assert html.count('class="evidence-trigger"') == 2, "project-04 evidence triggers"
+    assert '../assets/img/project-04-milestones-risk.png' in html, "milestone image"
+    assert '../assets/img/project-04-terminology.png' in html, "terminology image"
+    assert 'id="evidence-lightbox"' in html, "project-04 lightbox"
+    assert 'aria-modal="true"' in html, "project-04 modal semantics"
+    assert "Escape" in html and "prefers-reduced-motion" in html, "project-04 accessible motion"
+
+
 def assert_rejects_mutation(name, expected_message, check):
     try:
         check()
@@ -213,6 +229,8 @@ PAGES = {
 validate_homepage(INDEX)
 for number, title in zip(EXPECTED_NUMBERS, EXPECTED_TITLES):
     validate_project_page(PAGES[number], number, title, LEGACY_PAGE_FINGERPRINTS.get(number))
+
+validate_project_04_case_study(PAGES["04"])
 
 for html_path in [ROOT / "index.html", *(ROOT / "pages").glob("project-*.html")]:
     html = html_path.read_text(encoding="utf-8-sig")
