@@ -1,31 +1,42 @@
-# Design QA — Project 04 跨境项目管理
+# Design QA — Project 05 毕业项目网站成果
 
-- Reference: `docs/qa/01-reference.png` (selected editorial direction A, 1440 × 900)
-- Implementation: `docs/qa/02-implementation.png` (local page, 1440 × 900)
-- Comparison: `docs/qa/03-comparison.png`
-- Additional states: `docs/qa/04-mobile-390.png`, `docs/qa/05-lightbox.png`
-- Browser: Codex in-app browser
+**Source visual truth**
 
-## Visual comparison
+- `docs/qa/project-05/01-project04-visual-reference.png` — 已验收的 Project 04 页面视觉方向，1440 × 900。
+- 新 PPT 的 6 页信息结构、文字与 12 张原始证据图作为内容真相来源。
 
-The implementation preserves the selected direction's warm editorial paper palette, oversized serif hierarchy, navy metadata, terracotta annotation, fine rules, asymmetrical hero, and restrained capsule stamps. Chinese content renders correctly in the implementation; the raw low-fidelity reference server displayed mojibake, so only its visible layout and art direction were used as the visual target.
+**Implementation evidence**
 
-## Responsive and interaction checks
+- `docs/qa/project-05/02-project05-desktop.png` — 1440 × 900，CSS viewport 1440 × 900，device density 1。
+- `docs/qa/project-05/03-project05-mobile-390.png` — 390 × 844，CSS viewport 390 × 844，device density 1。
+- `docs/qa/project-05/04-carousel-mobile.png` — 手机端轮播控件重点状态。
+- `docs/qa/project-05/05-comparison.png` — Project 04 与 Project 05 同视口首屏并排对照。
 
-- Desktop 1440 × 900: no horizontal overflow; primary KPI has safe right-edge spacing.
-- Tablet 1024 × 768: evidence lightbox opens above page content and remains scrollable.
-- Mobile 390 × 844: no horizontal overflow; navigation remains usable; hero stacks into one column.
-- Both evidence screenshots open in the modal.
-- Escape closes the modal and restores focus to the invoking button.
-- Back links target `../index.html#timeline`.
-- Reduced-motion behavior is present.
+**State and interactions checked**
 
-## Findings and resolution
+- 首屏默认状态、章节锚点导航、返回作品集链接。
+- 3 组原位图片轮播：上一张、下一张、点击图片、左右方向键。
+- 当前图片计数通过 `aria-live="polite"` 更新。
+- 当前图片可放大，Escape 关闭后焦点返回触发按钮。
+- 390px 手机端无横向溢出，轮播控件重排为触控友好布局。
 
-- P1: Full-page capture appeared to duplicate sections. DOM count confirmed one instance per section; this was a scrolling screenshot stitching artifact. No code change required.
-- P2: Desktop KPI sat too close to the right edge at the maximum type size. Reduced its maximum size from 118px to 106px. Resolved.
-- P3: Existing project runtime reports a Tailwind CDN production warning from shared `assets/js/vendor.js`. This predates and sits outside the requested Project 04 page scope; no change made.
+**Required fidelity surfaces**
 
-## Final result
+- Fonts and typography: 延续 04 的大号中文衬线标题、等宽元数据和手写批注；层级、字重、换行均清晰。
+- Spacing and layout rhythm: 延续 12 栏编辑网格、细分隔线和大面积留白；桌面与手机端比例稳定。
+- Colors and tokens: 米沙纸色、深炭黑、主站深蓝、陶土红与淡黄高亮映射一致。
+- Image quality and asset fidelity: 12 张图片均直接取自 PPT 原始媒体，不使用占位图或代码绘图；证据图保持原比例与可放大阅读。
+- Copy and content: 6 个章节对应 PPT 6 页叙事，保留 5 类口音、15 个样本、10 次部署及用户反馈等原始事实；未引入外部数据。
+
+**Findings and comparison history**
+
+- First pass — P2: 轮播计数使用 `01 / 04`，会与站点页码测试产生歧义。Fix: 改为 `01 — 04`，保留清晰状态表达。Post-fix evidence: 自动化测试通过，轮播状态正确更新。
+- First pass — P2: 手机端章节结构较长，需要确认轮播按钮不会溢出。Fix: 390px 下改为两列控制按钮、状态与放大按钮独占整行。Post-fix evidence: `04-carousel-mobile.png`，页面 scrollWidth 375 小于 viewport 390。
+- Final comparison: 无未解决的 P0/P1/P2。Project 05 在保持 04 视觉系统的同时，用 0→1、二维码和学习产品数据形成自己的信息重点。
+- P3: 共用 `assets/js/vendor.js` 仍产生 Tailwind CDN 的既有警告；该文件属于全站公共运行时，不在本次单页修改范围。
+
+**Focused comparison**
+
+轮播控件与证据图是本页新增的关键交互，已用 `04-carousel-mobile.png` 单独检查。桌面首屏的字体、网格、色彩与 04 通过 `05-comparison.png` 对照。
 
 final result: passed

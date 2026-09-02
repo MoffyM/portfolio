@@ -1,126 +1,430 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="周芷琦毕业项目：借助 AI 独立完成英语口音学习平台 AccentGuide 的产品设计、内容协作与上线交付。">
     <title>毕业项目网站成果 - 周芷琦 · 个人作品集</title>
     <link rel="stylesheet" href="../assets/css/main.css">
     <style>
-        /* 二级页小调整 */
-        .ppt-frame { background: #f4f1eb; border: 2px solid #1a1a1a; }
-        .ppt-shadow { box-shadow: 8px 8px 0 rgba(26,26,26,1); }
+        :root {
+            --paper: #f6f4ee;
+            --ink: #1a1a1a;
+            --navy: #173f61;
+            --red: #c84b2a;
+            --yellow: #eadf86;
+            --mint: #dce7df;
+            --rule: rgba(26, 26, 26, .16);
+            --muted: rgba(26, 26, 26, .64);
+            --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+            --serif: "Noto Serif SC", "Songti SC", SimSun, serif;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: #e9e6df;
+            font-family: var(--serif);
+            -webkit-font-smoothing: antialiased;
+        }
+        button, a { font: inherit; }
+        img { display: block; max-width: 100%; }
+        .case-shell {
+            width: min(100%, 1440px);
+            margin: 0 auto;
+            overflow: hidden;
+            background-color: var(--paper);
+            border-inline: 1px solid var(--rule);
+        }
+        .display { font-family: var(--serif); font-weight: 900; letter-spacing: -.055em; }
+        .meta { font-family: var(--mono); font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+        .case-topbar {
+            min-height: 54px;
+            padding: 0 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--rule);
+        }
+        .back-link, .case-index, .section-nav a {
+            color: var(--navy);
+            text-decoration: none;
+            font: 800 10px/1 var(--mono);
+            letter-spacing: .13em;
+        }
+        .back-link { display: inline-flex; align-items: center; gap: 10px; }
+        .back-link iconify-icon { font-size: 17px; }
+        .back-link:hover, .back-link:focus-visible, .section-nav a:hover, .section-nav a:focus-visible { color: var(--red); }
+        .section-nav {
+            min-height: 34px;
+            padding: 0 28px;
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--rule);
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+        .section-nav::-webkit-scrollbar { display: none; }
+        .section-nav a { color: var(--muted); font-size: 9px; }
+        .grid-12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); }
+        .hero-copy {
+            grid-column: span 8;
+            min-height: 615px;
+            padding: clamp(54px, 7vw, 102px) clamp(30px, 6vw, 86px) 54px;
+            border-right: 1px solid var(--rule);
+            display: flex;
+            flex-direction: column;
+        }
+        .hero-aside {
+            grid-column: span 4;
+            min-height: 615px;
+            padding: 54px clamp(28px, 4vw, 54px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .eyebrow { color: var(--navy); font: 800 10px/1.5 var(--mono); letter-spacing: .18em; text-transform: uppercase; }
+        .hero-title { max-width: 910px; margin: 28px 0; font-size: clamp(52px, 6vw, 92px); line-height: .99; }
+        .highlight { padding-inline: .04em; background: var(--yellow); }
+        .hero-lede { max-width: 700px; margin: 0; font-size: clamp(16px, 1.35vw, 20px); line-height: 1.85; }
+        .hero-tags { margin-top: auto; padding-top: 46px; display: flex; flex-wrap: wrap; gap: 9px; }
+        .stamp { padding: 7px 11px; border: 1px solid var(--navy); border-radius: 999px; color: var(--navy); font: 800 9px/1 var(--mono); letter-spacing: .08em; }
+        .stamp.solid { color: var(--paper); background: var(--navy); }
+        .hand-note { color: var(--red); font-family: "Segoe Print", KaiTi, cursive; font-size: clamp(20px, 2.2vw, 30px); font-weight: 700; line-height: 1.45; transform: rotate(-3deg); }
+        .hero-number { color: var(--navy); font-size: clamp(70px, 7vw, 102px); line-height: .9; }
+        .hero-number-label { margin-top: 14px; font: 800 9px/1.55 var(--mono); letter-spacing: .14em; }
+        .qr-wrap { display: grid; grid-template-columns: 88px 1fr; gap: 16px; align-items: center; }
+        .qr-wrap img { width: 88px; border: 1px solid var(--rule); }
+        .qr-copy { color: var(--muted); font-size: 12px; line-height: 1.55; }
+        .qr-copy a { color: var(--navy); font-weight: 800; text-underline-offset: 3px; }
+        .metrics { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+        .metric { min-height: 168px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--rule); }
+        .metric:last-child { border-right: 0; }
+        .metric-value { color: var(--navy); font-size: clamp(34px, 4vw, 58px); line-height: 1; }
+        .metric-label { color: var(--muted); font: 800 9px/1.5 var(--mono); letter-spacing: .13em; }
+        .case-section { padding: clamp(72px, 8vw, 118px) clamp(24px, 6vw, 86px); border-bottom: 1px solid var(--rule); }
+        .section-kicker { grid-column: 1 / span 2; color: var(--red); font: 800 10px/1.4 var(--mono); letter-spacing: .12em; }
+        .section-main { grid-column: 3 / -1; }
+        .section-title { max-width: 1000px; margin: 0 0 30px; font-size: clamp(34px, 4.4vw, 66px); line-height: 1.08; }
+        .section-intro { max-width: 760px; margin: 0 0 44px; color: var(--muted); font-size: clamp(15px, 1.3vw, 19px); line-height: 1.85; }
+        .journey { display: grid; grid-template-columns: repeat(5, 1fr); border-block: 1px solid var(--rule); }
+        .journey-step { min-height: 160px; padding: 22px 18px; border-right: 1px solid var(--rule); }
+        .journey-step:last-child { border-right: 0; }
+        .journey-no { color: var(--red); font: 800 10px/1 var(--mono); }
+        .journey-step h3 { margin: 22px 0 8px; font-size: 19px; }
+        .journey-step p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+        .mode-note { margin-top: 34px; padding: 24px 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; border-left: 4px solid var(--red); background: rgba(234,223,134,.25); }
+        .mode-note strong { color: var(--navy); font-size: 20px; }
+        .mode-note p { margin: 8px 0 0; color: var(--muted); line-height: 1.7; }
+        .flow-list { border-top: 1px solid var(--rule); }
+        .flow-row { display: grid; grid-template-columns: 70px minmax(150px, .7fr) 1.4fr; gap: 22px; padding: 24px 0; border-bottom: 1px solid var(--rule); align-items: start; }
+        .flow-no { color: var(--red); font: 800 12px/1.5 var(--mono); }
+        .flow-row h3 { margin: 0; color: var(--navy); font-size: 21px; }
+        .flow-row p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.75; }
+        .evidence { margin-top: 44px; border: 1px solid var(--rule); background: rgba(255,255,255,.34); }
+        .evidence-head { min-height: 48px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; gap: 14px; border-bottom: 1px solid var(--rule); }
+        .evidence-label { color: var(--navy); font: 800 9px/1.4 var(--mono); letter-spacing: .12em; }
+        .evidence-hint { color: var(--red); font: 800 9px/1.4 var(--mono); letter-spacing: .1em; }
+        .single-evidence { appearance: none; width: 100%; padding: 30px; border: 0; background: transparent; cursor: zoom-in; }
+        .single-evidence img { max-height: 690px; margin: 0 auto; object-fit: contain; box-shadow: 0 16px 44px rgba(24,44,57,.12); }
+        .evidence-caption { margin: 0; padding: 16px; color: var(--muted); font-size: 13px; line-height: 1.7; border-top: 1px solid var(--rule); }
+        .carousel-stage { position: relative; min-height: 610px; padding: 30px; display: grid; place-items: center; overflow: hidden; }
+        .carousel-image { max-height: 550px; width: auto; object-fit: contain; box-shadow: 0 18px 48px rgba(24,44,57,.14); cursor: pointer; }
+        .carousel-image.is-changing { opacity: .16; transform: translateX(12px); }
+        .carousel-controls { min-height: 58px; padding: 10px 14px; display: grid; grid-template-columns: auto 1fr auto auto; gap: 10px; align-items: center; border-top: 1px solid var(--rule); }
+        .carousel-button, .zoom-button { min-height: 36px; padding: 8px 12px; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--navy); color: var(--navy); background: transparent; cursor: pointer; font: 800 9px/1 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+        .carousel-button:hover, .zoom-button:hover, .carousel-button:focus-visible, .zoom-button:focus-visible { color: var(--paper); background: var(--navy); }
+        .carousel-status { text-align: center; color: var(--muted); font: 800 9px/1.4 var(--mono); letter-spacing: .12em; }
+        .feedback-list { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--rule); }
+        .feedback-item { min-height: 180px; padding: 26px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+        .feedback-item:nth-child(even) { border-right: 0; }
+        .feedback-quote { color: var(--red); font-size: 18px; font-weight: 800; }
+        .feedback-action { margin-top: 20px; color: var(--navy); font-size: 15px; line-height: 1.7; }
+        .feedback-action::before { content: "→ "; color: var(--red); }
+        .result-band { padding: clamp(68px, 8vw, 110px) clamp(24px, 6vw, 86px); color: var(--paper); background: var(--navy); }
+        .result-band .section-kicker { color: var(--yellow); }
+        .result-band .section-title { color: var(--paper); }
+        .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 44px; border-block: 1px solid rgba(255,255,255,.28); }
+        .result-item { padding: 28px 22px; border-right: 1px solid rgba(255,255,255,.28); }
+        .result-item:last-child { border-right: 0; }
+        .result-item strong { display: block; color: var(--yellow); font-size: clamp(34px, 4vw, 56px); }
+        .result-item span { display: block; margin-top: 8px; font: 800 9px/1.5 var(--mono); letter-spacing: .12em; }
+        .reflection { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+        .reflection h3 { margin: 0 0 18px; color: var(--navy); font-size: 24px; }
+        .reflection p, .reflection li { color: var(--muted); font-size: 15px; line-height: 1.8; }
+        .reflection ul { margin: 0; padding-left: 1.1em; }
+        .final-link { margin-top: 46px; display: inline-flex; align-items: center; gap: 10px; color: var(--navy); text-decoration: none; font: 800 10px/1 var(--mono); letter-spacing: .12em; }
+        .final-link:hover { color: var(--red); }
+        .case-footer { min-height: 62px; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; gap: 18px; font: 800 9px/1.4 var(--mono); letter-spacing: .12em; }
+        .lightbox { position: fixed; inset: 0; z-index: 100; display: none; grid-template-rows: auto 1fr; color: white; background: rgba(13,22,30,.96); }
+        .lightbox[aria-hidden="false"] { display: grid; }
+        .lightbox-bar { min-height: 64px; padding: 10px 18px; display: flex; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 1px solid rgba(255,255,255,.2); }
+        .lightbox-title { font: 800 10px/1.4 var(--mono); letter-spacing: .1em; }
+        .lightbox-close { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,.5); color: white; background: transparent; cursor: pointer; }
+        .lightbox-stage { padding: 24px; overflow: auto; display: grid; place-items: start center; }
+        .lightbox-stage img { width: auto; max-width: none; height: auto; background: white; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+        .reveal.is-visible { opacity: 1; transform: none; }
+        :focus-visible { outline: 3px solid var(--red); outline-offset: 4px; }
+        @media (max-width: 900px) {
+            .hero-copy { grid-column: span 7; }
+            .hero-aside { grid-column: span 5; }
+            .section-kicker { grid-column: 1 / span 3; }
+            .section-main { grid-column: 4 / -1; }
+            .journey { grid-template-columns: repeat(2, 1fr); }
+            .journey-step { border-bottom: 1px solid var(--rule); }
+            .journey-step:nth-child(even) { border-right: 0; }
+            .journey-step:last-child { grid-column: 1 / -1; border-bottom: 0; }
+        }
+        @media (max-width: 767px) {
+            html { scroll-behavior: auto; }
+            .case-shell { border-inline: 0; }
+            .case-topbar, .section-nav { padding-inline: 16px; }
+            .hero-copy, .hero-aside, .section-kicker, .section-main { grid-column: 1 / -1; }
+            .hero-copy { min-height: auto; padding: 58px 22px 42px; border-right: 0; border-bottom: 1px solid var(--rule); }
+            .hero-aside { min-height: 370px; padding: 34px 22px; }
+            .hero-title { font-size: clamp(44px, 12.6vw, 62px); }
+            .metrics { grid-template-columns: repeat(2, 1fr); }
+            .metric { min-height: 145px; padding: 22px 18px; }
+            .metric:nth-child(2) { border-right: 0; }
+            .metric:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+            .case-section, .result-band { padding: 68px 22px; }
+            .section-kicker { margin-bottom: 24px; }
+            .journey, .mode-note, .feedback-list, .result-grid, .reflection { grid-template-columns: 1fr; }
+            .journey-step { border-right: 0; }
+            .journey-step:last-child { grid-column: auto; }
+            .mode-note { gap: 18px; }
+            .flow-row { grid-template-columns: 50px 1fr; gap: 14px; }
+            .flow-row p { grid-column: 2; }
+            .feedback-item, .feedback-item:nth-child(even), .result-item { border-right: 0; }
+            .feedback-item:last-child { border-bottom: 0; }
+            .result-item { border-bottom: 1px solid rgba(255,255,255,.28); }
+            .result-item:last-child { border-bottom: 0; }
+            .carousel-stage { min-height: 500px; padding: 18px; }
+            .carousel-image { max-height: 460px; }
+            .carousel-controls { grid-template-columns: 1fr 1fr; }
+            .carousel-status { grid-column: 1 / -1; grid-row: 1; }
+            .zoom-button { grid-column: 1 / -1; justify-content: center; }
+            .single-evidence { padding: 18px; }
+            .reflection { gap: 30px; }
+            .case-footer { padding: 16px; flex-wrap: wrap; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+            .reveal { opacity: 1; transform: none; }
+        }
     </style>
 </head>
-<body class="bg-base text-ink font-mono antialiased overflow-x-hidden">
+<body>
+<main class="case-shell" data-case-study="project-05">
+    <header class="case-topbar">
+        <a class="back-link" href="../index.html#timeline"><iconify-icon icon="solar:arrow-left-linear" aria-hidden="true"></iconify-icon><span>返回作品集</span></a>
+        <span class="case-index">项目 / 05</span>
+    </header>
+    <nav class="section-nav" aria-label="案例页目录">
+        <a href="#overview">概览</a><a href="#product">产品</a><a href="#collaboration">协作</a><a href="#ai">AI 开发</a><a href="#feedback">反馈</a><a href="#outcomes">结果</a>
+    </nav>
 
-    <!-- 顶部标识 -->
-    <main class="max-w-[1440px] mx-auto border-x border-grid relative flex flex-col min-h-screen">
+    <section class="grid-12" id="overview">
+        <div class="hero-copy">
+            <div class="eyebrow">项目 05 · 毕业课题 / 2025—2026</div>
+            <h1 class="hero-title display">从毕业课题，<br>到一款<span class="highlight">上线产品</span>。</h1>
+            <p class="hero-lede">零开发经验下，借助 AI 独立完成 World English Accents 交互式学习平台 0→1：从问题定义、产品结构、跨语言内容协作，到 5 类口音、15 个样本的网页开发与 10 次公开部署。</p>
+            <div class="hero-tags" aria-label="项目标签"><span class="stamp solid">PROJECT OWNER</span><span class="stamp">产品设计</span><span class="stamp">AI 开发</span><span class="stamp">内容集成</span><span class="stamp">[05]</span></div>
+        </div>
+        <aside class="hero-aside" aria-label="项目核心成果">
+            <div class="hand-note">“不会写代码，<br>也可以先把问题定义清楚。”</div>
+            <div><div class="hero-number display">0→1</div><div class="hero-number-label">FROM CAPSTONE<br>TO LIVE PRODUCT</div></div>
+            <div class="qr-wrap"><img src="../assets/img/project-05-01.png" alt="AccentGuide 网站体验二维码"><div class="qr-copy">网站成果<br><a href="https://moffym.github.io/Accent-guide/" target="_blank" rel="noopener">打开 AccentGuide</a></div></div>
+        </aside>
+    </section>
 
-        <header class="flex justify-between items-center py-3 px-6 border-b border-grid text-xs uppercase tracking-widest font-semibold text-ink/70">
-            <a href="../index.html#timeline" class="flex items-center gap-4 hover:text-accent transition-colors">
-                <div class="w-3 h-3 bg-secondary"></div>
-                <span>周芷琦 · 个人作品集</span>
-            </a>
-            <div class="hidden md:flex items-center gap-2 text-secondary">
-                <iconify-icon icon="solar:target-linear" class="text-base"></iconify-icon>
-            </div>
-            <div class="hidden md:flex items-center gap-4">
-                <span>项目 / 05</span>
-            </div>
-        </header>
+    <section class="metrics" aria-label="项目数据">
+        <div class="metric"><div class="metric-value display">5</div><div class="metric-label">ACCENT TYPES<br>五类口音</div></div>
+        <div class="metric"><div class="metric-value display">15</div><div class="metric-label">VOICE SAMPLES<br>十五个样本</div></div>
+        <div class="metric"><div class="metric-value display">10</div><div class="metric-label">PUBLIC DEPLOYS<br>十次公开部署</div></div>
+        <div class="metric"><div class="metric-value display">3</div><div class="metric-label">CORE ROLES<br>产品 / 开发 / 集成</div></div>
+    </section>
 
-        <!-- Hero -->
-        <section class="relative border-b border-grid flex flex-col p-8 md:p-16 overflow-hidden">
-            <div class="text-accent font-semibold tracking-widest mb-6 border-b-2 border-secondary inline-block pb-1 self-start">
-                项目 05 · 产品设计
-            </div>
-            <h1 class="font-sans font-bold text-5xl md:text-7xl leading-[0.9] tracking-tight uppercase mb-8 text-accent">
-                毕业项目网站成果
-            </h1>
-            <p class="text-sm md:text-base max-w-2xl leading-relaxed font-semibold mb-12">
-                产品设计 · 学习路径 · AI辅助开发。10 轮以上迭代，最终交付一个完整的网站项目。
-            </p>
-
-            <!-- 关键数据 -->
-            <div class="flex flex-wrap gap-4 text-xs font-semibold tracking-widest">
-                                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">10+ 轮迭代</span>
-                    <span class="text-secondary">[05]</span>
+    <section class="case-section" id="product">
+        <div class="grid-12 reveal">
+            <div class="section-kicker">01 / PRODUCT</div>
+            <div class="section-main">
+                <h2 class="section-title display">把“口音资料”，变成一条可以完成的学习任务。</h2>
+                <p class="section-intro">项目起点只是一个方向性教学课题。我的产品判断是：专业语料库内容丰富但缺少学习引导，普通视频容易接触却缺少系统标注与练习。因此以中高级 EFL 学习者为核心用户，将内容重新组织为五步学习路径。</p>
+                <div class="journey" aria-label="学习任务流程">
+                    <article class="journey-step"><span class="journey-no">01</span><h3>选择口音</h3><p>从英、美、中、港、巴五类样本进入。</p></article>
+                    <article class="journey-step"><span class="journey-no">02</span><h3>聆听样本</h3><p>先听音频，建立未经提示的第一判断。</p></article>
+                    <article class="journey-step"><span class="journey-no">03</span><h3>揭示转写</h3><p>对照语音材料与文本内容。</p></article>
+                    <article class="journey-step"><span class="journey-no">04</span><h3>填空验证</h3><p>用轻量练习确认是否真正听懂。</p></article>
+                    <article class="journey-step"><span class="journey-no">05</span><h3>理解特征</h3><p>再进入发音规律与语言学解释。</p></article>
                 </div>
-                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">AI 辅助开发</span>
-                    <span class="text-secondary">[05]</span>
-                </div>
-                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">产品设计</span>
-                    <span class="text-secondary">[05]</span>
-                </div>
-                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">WEB PROJECT</span>
-                    <span class="text-secondary">[05]</span>
-                </div>
-
+                <div class="mode-note"><div><strong>Learner Mode</strong><p>降低初次学习门槛，用清晰提示建立完成感。</p></div><div><strong>Linguist Mode</strong><p>承载进阶分析，让专业信息按需展开而非一次压给用户。</p></div></div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- PPT 展示区 -->
-        <section class="relative border-b border-grid flex flex-col p-8 md:p-16 bg-grid/10">
-            <header class="flex justify-between items-center mb-12 text-xs font-semibold uppercase tracking-widest border-b border-grid pb-4">
-                <span class="text-accent">// PROJECT DECK</span>
-                <span class="text-secondary">05 / 06</span>
-            </header>
-
-            <!-- PPT 容器 - 等你给内容 -->
-            <div class="ppt-frame ppt-shadow aspect-video w-full flex flex-col items-center justify-center p-12 text-center">
-                <iconify-icon icon="solar:gallery-wide-linear" class="text-6xl text-ink/30 mb-4"></iconify-icon>
-                <p class="text-sm font-semibold tracking-widest uppercase text-ink/50">
-                    PPT 展示区
-                </p>
-                <p class="text-xs text-ink/40 mt-2 max-w-md">
-                    把项目 PPT 的内容（截图、PDF 转图片、或者直接放文字段落）放在这里即可。
-                </p>
-            </div>
-
-            <!-- 占位 PPT 卡片 - 之后替换 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 02</span>
-                    <p class="text-xs text-ink/60 mt-2">背景与目标</p>
+    <section class="case-section" id="collaboration">
+        <div class="grid-12 reveal">
+            <div class="section-kicker">02 / COLLABORATION</div>
+            <div class="section-main">
+                <h2 class="section-title display">跨语言沟通协作，靠 SOP 把不同表达收敛成统一交付。</h2>
+                <div class="flow-list">
+                    <div class="flow-row"><span class="flow-no">01</span><h3>发现问题</h3><p>三人提交的录音、转写、语言分析和题目口径不一致。</p></div>
+                    <div class="flow-row"><span class="flow-no">02</span><h3>建立标准</h3><p>统一音频、转写、分析与题目模板，明确每个字段的质量要求。</p></div>
+                    <div class="flow-row"><span class="flow-no">03</span><h3>异步推进</h3><p>通过英文沟通明确交付方式、文件格式、责任人与截止时间。</p></div>
+                    <div class="flow-row"><span class="flow-no">04</span><h3>集中验收</h3><p>回收后集中审核，修正口径差异，再统一集成进网站并上线。</p></div>
                 </div>
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 03</span>
-                    <p class="text-xs text-ink/60 mt-2">过程与方法</p>
-                </div>
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 04</span>
-                    <p class="text-xs text-ink/60 mt-2">结果与数据</p>
-                </div>
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 05</span>
-                    <p class="text-xs text-ink/60 mt-2">复盘与思考</p>
-                </div>
+                <figure class="evidence" data-carousel data-title="跨语言团队协作记录" data-images="../assets/img/project-05-02.png|../assets/img/project-05-03.png|../assets/img/project-05-04.png|../assets/img/project-05-05.png" data-alts="向团队成员发送统一模板与任务说明|围绕口音样本和材料字段进行英文沟通|协调网站试用与导师沟通安排|向团队确认项目要求与交付口径">
+                    <div class="evidence-head"><span class="evidence-label">PROJECT EVIDENCE / 01</span><span class="evidence-hint">点击图片切换下一张</span></div>
+                    <div class="carousel-stage"><img class="carousel-image" src="../assets/img/project-05-02.png" alt="向团队成员发送统一模板与任务说明"></div>
+                    <div class="carousel-controls"><button class="carousel-button prev" type="button" aria-label="查看上一张协作记录"><iconify-icon icon="solar:arrow-left-linear"></iconify-icon>上一张</button><div class="carousel-status" aria-live="polite">01 — 04</div><button class="carousel-button next" type="button" aria-label="查看下一张协作记录">下一张<iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button><button class="zoom-button" type="button">放大查看</button></div>
+                    <figcaption class="evidence-caption">沟通记录显示：我将方向性要求转成可执行模板、交付节点和验收口径，并协调团队成员与导师之间的信息同步。</figcaption>
+                </figure>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- 底部 -->
-        <footer class="border-t border-grid py-4 px-6 flex justify-between items-center text-[10px] font-semibold uppercase tracking-widest text-ink bg-base z-30">
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 bg-secondary"></div>
-                <span>PEOPLE. STORIES. IDEAS. GROWTH.</span>
+    <section class="case-section" id="ai">
+        <div class="grid-12 reveal">
+            <div class="section-kicker">03 / AI BUILD</div>
+            <div class="section-main">
+                <h2 class="section-title display">AI 辅助提效：把专业内容、功能结构和视觉要求，翻译成可执行任务。</h2>
+                <div class="flow-list">
+                    <div class="flow-row"><span class="flow-no">01</span><h3>定义骨架</h3><p>先明确页面结构、音频、转写与测试四类核心模块。</p></div>
+                    <div class="flow-row"><span class="flow-no">02</span><h3>组织上下文</h3><p>上传语料与参考内容，向 AI 说明字段关系和展示顺序。</p></div>
+                    <div class="flow-row"><span class="flow-no">03</span><h3>细化体验</h3><p>逐步补充风格、间距、信息层级和响应式要求。</p></div>
+                    <div class="flow-row"><span class="flow-no">04</span><h3>人工验收</h3><p>逐项核对内容、音频、跳转和部署结果，避免把生成结果直接当成完成。</p></div>
+                </div>
+                <figure class="evidence" data-carousel data-title="AI 辅助开发过程" data-images="../assets/img/project-05-06.png|../assets/img/project-05-07.png" data-alts="使用 AI 拆解网站功能与设计要求|向 AI 提供专业语料并迭代网页代码">
+                    <div class="evidence-head"><span class="evidence-label">PROJECT EVIDENCE / 02</span><span class="evidence-hint">点击图片切换下一张</span></div>
+                    <div class="carousel-stage"><img class="carousel-image" src="../assets/img/project-05-06.png" alt="使用 AI 拆解网站功能与设计要求"></div>
+                    <div class="carousel-controls"><button class="carousel-button prev" type="button" aria-label="查看上一张 AI 开发记录"><iconify-icon icon="solar:arrow-left-linear"></iconify-icon>上一张</button><div class="carousel-status" aria-live="polite">01 — 02</div><button class="carousel-button next" type="button" aria-label="查看下一张 AI 开发记录">下一张<iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button><button class="zoom-button" type="button">放大查看</button></div>
+                    <figcaption class="evidence-caption">AI 在这里承担的是执行加速器；产品判断、上下文组织、质量标准和最终验收仍由我负责。</figcaption>
+                </figure>
             </div>
-            <a href="../index.html#timeline" class="text-accent hover:text-ink transition-colors">
-                ← 返回主页
-            </a>
-            <div class="flex items-center gap-4">
-                <span>© 2026 周芷琦</span>
-                <div class="w-2 h-2 bg-secondary"></div>
+        </div>
+    </section>
+
+    <section class="case-section" id="feedback">
+        <div class="grid-12 reveal">
+            <div class="section-kicker">04 / FEEDBACK</div>
+            <div class="section-main">
+                <h2 class="section-title display">把导师的专业意见，翻译成具体、可追踪的产品改动。</h2>
+                <p class="section-intro">形成“阶段提交 → 反馈拆解 → 团队执行 → 网站更新”的闭环，让学术意见不止停留在讨论层，而是落进网页结构和内容规范。</p>
+                <div class="feedback-list">
+                    <article class="feedback-item"><div class="feedback-quote">“内容过于技术化”</div><div class="feedback-action">每类口音收敛为 2–3 个重点。</div></article>
+                    <article class="feedback-item"><div class="feedback-quote">“学习说明不足”</div><div class="feedback-action">增加 Learner’s Guidelines 与通俗提示。</div></article>
+                    <article class="feedback-item"><div class="feedback-quote">“录音与特征需对应”</div><div class="feedback-action">逐条核对音频、转写与分析。</div></article>
+                    <article class="feedback-item"><div class="feedback-quote">“标题与转写不统一”</div><div class="feedback-action">统一字段规范并集中校对。</div></article>
+                </div>
+                <figure class="evidence" data-carousel data-title="导师反馈与阶段提交" data-images="../assets/img/project-05-08.png|../assets/img/project-05-09.png|../assets/img/project-05-10.png|../assets/img/project-05-11.png" data-alts="导师通过邮件补充网站内容反馈|团队向导师提交阶段成果并获得建议|预约毕业项目指导会议|根据反馈提交网站内容文档">
+                    <div class="evidence-head"><span class="evidence-label">PROJECT EVIDENCE / 03</span><span class="evidence-hint">点击图片切换下一张</span></div>
+                    <div class="carousel-stage"><img class="carousel-image" src="../assets/img/project-05-08.png" alt="导师通过邮件补充网站内容反馈"></div>
+                    <div class="carousel-controls"><button class="carousel-button prev" type="button" aria-label="查看上一张导师反馈"><iconify-icon icon="solar:arrow-left-linear"></iconify-icon>上一张</button><div class="carousel-status" aria-live="polite">01 — 04</div><button class="carousel-button next" type="button" aria-label="查看下一张导师反馈">下一张<iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button><button class="zoom-button" type="button">放大查看</button></div>
+                    <figcaption class="evidence-caption">邮件与会议记录保留了从提交、反馈到修改的完整证据链，也体现我将模糊意见转成明确行动项的能力。</figcaption>
+                </figure>
             </div>
-        </footer>
+        </div>
+    </section>
 
-    </main>
+    <section class="result-band" id="outcomes">
+        <div class="grid-12 reveal">
+            <div class="section-kicker">05 / OUTCOMES</div>
+            <div class="section-main"><h2 class="section-title display">成果是一款已公开部署的网站，也是一轮真实但克制的产品验证。</h2><div class="result-grid"><div class="result-item"><strong class="display">5</strong><span>英 / 美 / 中 / 港 / 巴<br>五类口音</span></div><div class="result-item"><strong class="display">15</strong><span>每类 3 位说话人<br>十五个样本</span></div><div class="result-item"><strong class="display">10</strong><span>GITHUB PAGES<br>持续公开部署</span></div></div></div>
+        </div>
+    </section>
 
-    <script src="../assets/js/vendor.js"></script>
-    <script src="../assets/js/iconify.js"></script>
-    <script src="../assets/js/tailwind-config.js"></script>
+    <section class="case-section">
+        <div class="grid-12 reveal">
+            <div class="section-kicker">06 / RETROSPECTIVE</div>
+            <div class="section-main">
+                <h2 class="section-title display">这是一次小范围交付，而不是被包装成“成熟增长产品”的课程作业。</h2>
+                <div class="reflection"><div><h3>用户反馈集中在哪里</h3><ul><li>产品定位不够清晰</li><li>首轮使用引导偏弱</li><li>页面文字偏多</li><li>测试目的不够明确</li></ul></div><div><h3>下一轮我会优先做什么</h3><p>聚焦“口音听辨体验”，在首屏明确网页价值；减少一次性解释，把用户引导嵌入任务流程，并让每次测试都对应清晰的学习目标。</p></div></div>
+                <figure class="evidence"><div class="evidence-head"><span class="evidence-label">PROJECT EVIDENCE / 04</span><span class="evidence-hint">10 次部署记录 · 点击放大</span></div><button class="single-evidence evidence-trigger" type="button" data-src="../assets/img/project-05-12.png" data-alt="AccentGuide GitHub Pages 十次部署记录" data-title="GitHub Pages 持续部署记录"><img src="../assets/img/project-05-12.png" alt="AccentGuide GitHub Pages 十次部署记录"></button><figcaption class="evidence-caption">部署记录对应从内容接入、反馈修订到线上更新的持续迭代过程。</figcaption></figure>
+                <a class="final-link" href="../index.html#timeline"><iconify-icon icon="solar:arrow-left-linear"></iconify-icon>返回作品集 / VIEW ALL PROJECTS</a>
+            </div>
+        </div>
+    </section>
+    <footer class="case-footer"><span>05 / 06</span><span>© 2026 周芷琦</span></footer>
+</main>
+
+<div class="lightbox" id="evidence-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lightbox-title">
+    <div class="lightbox-bar"><span class="lightbox-title" id="lightbox-title">项目证据</span><button class="lightbox-close" type="button" aria-label="关闭完整截图"><iconify-icon icon="solar:close-circle-linear"></iconify-icon></button></div>
+    <div class="lightbox-stage"><img src="" alt=""></div>
+</div>
+
+<script src="../assets/js/vendor.js"></script>
+<script src="../assets/js/iconify.js"></script>
+<script src="../assets/js/tailwind-config.js"></script>
+<script>
+(() => {
+    const lightbox = document.getElementById('evidence-lightbox');
+    const lightboxImage = lightbox.querySelector('img');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const closeButton = lightbox.querySelector('.lightbox-close');
+    let returnFocus = null;
+
+    const openLightbox = (src, alt, title, trigger) => {
+        returnFocus = trigger;
+        lightboxImage.src = src;
+        lightboxImage.alt = alt;
+        lightboxTitle.textContent = title;
+        lightbox.setAttribute('aria-hidden', 'false');
+        closeButton.focus();
+    };
+    const closeLightbox = () => {
+        lightbox.setAttribute('aria-hidden', 'true');
+        lightboxImage.src = '';
+        if (returnFocus) returnFocus.focus();
+    };
+    closeButton.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', event => { if (event.target === lightbox || event.target.classList.contains('lightbox-stage')) closeLightbox(); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape' && lightbox.getAttribute('aria-hidden') === 'false') closeLightbox(); });
+
+    document.querySelectorAll('.evidence-trigger').forEach(button => button.addEventListener('click', () => openLightbox(button.dataset.src, button.dataset.alt, button.dataset.title, button)));
+
+    document.querySelectorAll('[data-carousel]').forEach(carousel => {
+        const images = carousel.dataset.images.split('|');
+        const alts = carousel.dataset.alts.split('|');
+        const image = carousel.querySelector('.carousel-image');
+        const status = carousel.querySelector('.carousel-status');
+        const zoom = carousel.querySelector('.zoom-button');
+        let index = 0;
+        const render = nextIndex => {
+            index = (nextIndex + images.length) % images.length;
+            image.classList.add('is-changing');
+            window.setTimeout(() => {
+                image.src = images[index]; image.alt = alts[index];
+                status.textContent = String(index + 1).padStart(2, '0') + ' — ' + String(images.length).padStart(2, '0');
+                image.classList.remove('is-changing');
+            }, 90);
+        };
+        carousel.querySelector('.prev').addEventListener('click', () => render(index - 1));
+        carousel.querySelector('.next').addEventListener('click', () => render(index + 1));
+        image.addEventListener('click', () => render(index + 1));
+        image.setAttribute('tabindex', '0');
+        image.setAttribute('role', 'button');
+        image.setAttribute('aria-label', '切换下一张项目证据');
+        image.addEventListener('keydown', event => {
+            if (event.key === 'ArrowLeft') render(index - 1);
+            if (event.key === 'ArrowRight' || event.key === 'Enter' || event.key === ' ') { event.preventDefault(); render(index + 1); }
+        });
+        zoom.addEventListener('click', () => openLightbox(images[index], alts[index], carousel.dataset.title, zoom));
+    });
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reveals = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) reveals.forEach(item => item.classList.add('is-visible'));
+    else {
+        const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }), { threshold: .08 });
+        reveals.forEach(item => observer.observe(item));
+    }
+})();
+</script>
 </body>
 </html>

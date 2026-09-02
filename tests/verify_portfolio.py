@@ -18,7 +18,6 @@ EXPECTED_TITLES = [
 LEGACY_PAGE_FINGERPRINTS = {
     "02": "9546ca62c1ea15aa242f086ecf831fc2f8fef8506cea3a079e7ecb0dab7821ad",
     "03": "fdfc0c00cfed29309a0affbbe1c32a3a19b24bc53742c5d0d4a1fea3de5ec9b2",
-    "05": "3d67e812f4950c12630a453d014f2d9cd78cd55e13c0e7363c73713b2d28dca2",
     "06": "61835c7dbb0df71bb9d974f923f380fdc5d821fd464ef8029d3351f86460a9c5",
 }
 VOID_ELEMENTS = {
@@ -208,6 +207,25 @@ def validate_project_04_case_study(html):
     assert "Escape" in html and "prefers-reduced-motion" in html, "project-04 accessible motion"
 
 
+def validate_project_05_case_study(html):
+    required_text = [
+        "5 类口音", "15 个样本", "10 次公开部署", "中高级 EFL 学习者",
+        "Learner Mode", "Linguist Mode", "跨语言沟通协作", "AI 辅助提效",
+        "导师的专业意见", "用户反馈", "定位不够清晰", "口音听辨体验",
+    ]
+    for text in required_text:
+        assert text in html, f"project-05 evidence: {text}"
+
+    assert 'data-case-study="project-05"' in html, "project-05 case study root"
+    assert html.count('<figure class="evidence" data-carousel') == 3, "project-05 carousel groups"
+    for number in range(1, 13):
+        assert f'../assets/img/project-05-{number:02}.png' in html, f"project-05 image {number:02}"
+    assert 'aria-live="polite"' in html, "project-05 carousel live status"
+    assert "ArrowLeft" in html and "ArrowRight" in html, "project-05 keyboard carousel"
+    assert 'id="evidence-lightbox"' in html and 'aria-modal="true"' in html, "project-05 lightbox"
+    assert "Escape" in html and "prefers-reduced-motion" in html, "project-05 accessible motion"
+
+
 def assert_rejects_mutation(name, expected_message, check):
     try:
         check()
@@ -231,6 +249,7 @@ for number, title in zip(EXPECTED_NUMBERS, EXPECTED_TITLES):
     validate_project_page(PAGES[number], number, title, LEGACY_PAGE_FINGERPRINTS.get(number))
 
 validate_project_04_case_study(PAGES["04"])
+validate_project_05_case_study(PAGES["05"])
 
 for html_path in [ROOT / "index.html", *(ROOT / "pages").glob("project-*.html")]:
     html = html_path.read_text(encoding="utf-8-sig")
