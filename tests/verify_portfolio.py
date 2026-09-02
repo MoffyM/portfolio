@@ -226,6 +226,8 @@ def validate_project_05_case_study(html):
     assert "Escape" in html and "prefers-reduced-motion" in html, "project-05 accessible motion"
     assert 'class="accent-cta"' in html, "project-05 prominent live-site CTA"
     assert "查看线上成果" in html and "solar:arrow-up-right-linear" in html, "project-05 CTA guidance"
+    assert '--ui-copy-size: clamp(16px, 1.35vw, 20px)' in html, "project-05 shared large UI copy size"
+    assert html.count('font-size: var(--ui-copy-size)') >= 5, "project-05 enlarged navigation and CTA text"
 
 
 def assert_rejects_mutation(name, expected_message, check):
