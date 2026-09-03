@@ -1,36 +1,41 @@
-# Design QA — Project 02 用户召回策略
+# Design QA — Project 03 活动运营IP联动
 
 **Source visual truth**
 
-- `docs/qa/project-05/02-project05-desktop.png` — 已验收的 Project 04/05 暖色报刊杂志视觉方向。
-- 新 PPT 的 10 页信息结构、文字、数据及表格作为内容真相来源；源文件未包含独立图片媒体，因此本页无需图片轮播。
+- `docs/qa/project-05/02-project05-desktop.png` — 已确认的暖色报刊杂志风首屏，作为同站视觉体系参照。
+- `废柴猫用户活动运营联动项目.pptx` 的 11 页内容与 10 张原始图片作为本页内容真相来源。
 
 **Implementation evidence**
 
-- `docs/qa/project-02/01-project02-desktop.png` — 1440 × 900 全页桌面验收图。
-- `docs/qa/project-02/02-project02-mobile-top.png` — 390 × 844 手机首屏。
-- `docs/qa/project-02/03-project02-experiment.png` — 页内导航后的实验表格重点状态。
+- `docs/qa/project-03/01-project03-desktop.png` — 桌面首屏，1426 × 891 px；CSS viewport 1440 × 900，density 1。
+- `docs/qa/project-03/02-project03-mobile.png` — 手机首屏，375 × 844 px；CSS viewport 390 × 844，density 1。
+- `docs/qa/project-03/03-project03-community.png` — 手机端社群轮播第 3 张与控件重点状态。
+- `docs/qa/project-03/04-comparison.png` — Project 05 与 Project 03 同视口首屏并排对照。
 
-**State and interactions checked**
+**States and interactions checked**
 
-- 10 个 PPT 对应内容段、返回作品集、章节锚点导航。
-- 三张数据表均使用原生 HTML 表格；390px 下由表格容器局部横向滚动。
-- 桌面与手机端页面均无横向溢出；手机端导航可横向轻扫。
-- `prefers-reduced-motion` 下关闭进入动画，保留完整内容可见性。
+- 返回作品集、8 个章节锚点及 11 个 PPT 对应内容段。
+- 两组原位图片轮播：上一张、下一张、点击图片、左右方向键。
+- 轮播计数通过 `aria-live="polite"` 更新；实测 `01 — 04 → 02 — 04 → 03 — 04`。
+- 4 组证据图均可放大；Escape/关闭按钮关闭后恢复焦点。
+- 390px 手机端页面无横向溢出，轮播控制重排为触控友好布局。
+- 控制台无页面脚本错误；仅有共用 `assets/js/vendor.js` 的既有 Tailwind CDN 警告。
 
 **Required fidelity surfaces**
 
-- Fonts and typography: 大号中文衬线标题、等宽元数据、陶土红手写式判断语；正文不低于 16px，章节标记 14px。
-- Spacing and layout rhythm: 12 栏编辑网格、细分隔线和大面积留白；移动端改为单栏叙事。
-- Colors and tokens: 米沙纸色、深炭黑、主站深蓝、陶土红和淡黄高亮与现有 04/05 页面协调。
-- Tables: 流失主因校准、召回策略映射、A/B 实验三处均保留行列结构与重点行高亮。
-- Copy and content: 保留 24 次访谈、2,731 份问卷、18.6 万行为样本、42.4%、66.7%、四层召回、滴滴 567、7.8%、+4.7pp、+5.4% 和 ROI 1.89 等 PPT 原始信息；未引入外部数据。
+- Fonts and typography: 延续大号中文衬线标题、等宽元数据和陶土红批注；桌面返回/导航约 19.45px，手机 16px，正文基准 16px，章节标记 14px。
+- Spacing and layout rhythm: 12 栏编辑网格、细分隔线、大面积留白；桌面图文并置，移动端自然堆叠。
+- Colors and tokens: 米沙纸色、深炭黑、主站深蓝、陶土红、淡黄高亮与 02/04/05 页面一致。
+- Image quality and asset fidelity: 10 张图片全部来自 PPT 原始媒体，未使用占位图、CSS 绘图或生成图片；保持原比例并支持放大。
+- Copy and content: 保留 42 万元、25.2 万元、16.8 万元、约 5 倍、18 天周期、四类用户路径和复盘不足；未引入外部数据。
 
-**Findings**
+**Findings and comparison history**
 
-- P2: 首次自动化全页截图中，滚动进入动画使未进入视口的内容显示为空白；实际滚动浏览正常。补充页内导航到实验段的可视验收图，并确认目标段可见。
-- P2: 手机端宽表可能撑宽页面。Fix: 三张表置于 `overflow-x:auto` 容器；实测页面 scrollWidth 390 等于 viewport 390，表格容器宽 390、内部宽 820。
-- P3: 共用 `assets/js/vendor.js` 仍产生 Tailwind CDN 的既有警告；该文件属于全站公共运行时，不在本次单页修改范围。
-- Final comparison: 无未解决的 P0/P1/P2；视觉语言延续 04/05，页面重点转向用户洞察、分层策略和实验结果。
+- First pass — P2: `data-carousel` 是空值布尔属性，初版脚本用 `dataset.carousel` 判断，导致轮播按钮不更新。Fix: 改为 `hasAttribute('data-carousel')`，并新增静态回归断言。Post-fix evidence: 按钮实测从 `01 — 04` 更新到 `02 — 04`，键盘右方向键更新至 `03 — 04`，放大弹层正常打开。
+- Responsive pass — 无页面横向溢出；390px 下 document scrollWidth 375，小于 viewport 390。
+- Full-view comparison — Project 03 与已确认 Project 05 使用相同的字体层级、米沙底色、深蓝/陶土红/淡黄令牌、细线网格和数据栏节奏；Project 03 的右侧原始活动图为内容差异。
+- Focused comparison — 社群轮播控件及原始海报在 `03-project03-community.png` 中单独检查，按钮、计数和图片比例清晰。
+- P3: 共用 `assets/js/vendor.js` 仍产生 Tailwind CDN 既有警告；不属于本次单页修改范围。
+- Final comparison: 无未解决的 P0/P1/P2。
 
 final result: passed

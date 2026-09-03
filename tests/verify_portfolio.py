@@ -16,7 +16,6 @@ EXPECTED_TITLES = [
 ]
 # origin/main project-01..05 after normalizing only the allowed numbering fields.
 LEGACY_PAGE_FINGERPRINTS = {
-    "03": "fdfc0c00cfed29309a0affbbe1c32a3a19b24bc53742c5d0d4a1fea3de5ec9b2",
     "06": "61835c7dbb0df71bb9d974f923f380fdc5d821fd464ef8029d3351f86460a9c5",
 }
 VOID_ELEMENTS = {
@@ -246,6 +245,29 @@ def validate_project_02_case_study(html):
     assert "prefers-reduced-motion" in html, "project-02 accessible motion"
 
 
+def validate_project_03_case_study(html):
+    required_text = [
+        "42万元", "25.2万元", "16.8万元", "约5倍", "2023.09.28—10.15",
+        "年轻化 × 泛二次元 × 社交娱乐 × 兴趣驱动消费", "触达—到店—转化—沉淀",
+        "女性向IP兴趣用户", "活动专属券码", "不以热点代替人群匹配",
+    ]
+    for text in required_text:
+        assert text in html, f"project-03 evidence: {text}"
+
+    assert 'data-case-study="project-03"' in html, "project-03 case study root"
+    assert html.count('data-slide="') == 11, "project-03 follows eleven-slide source structure"
+    assert html.count('<figure class="evidence" data-carousel') == 2, "project-03 grouped image carousels"
+    for number in range(1, 11):
+        assert f'../assets/img/project-03-{number:02}' in html, f"project-03 image {number:02}"
+    assert 'aria-live="polite"' in html, "project-03 carousel live status"
+    assert "ArrowLeft" in html and "ArrowRight" in html, "project-03 keyboard carousel"
+    assert "hasAttribute('data-carousel')" in html, "project-03 initializes empty boolean carousel attribute"
+    assert 'id="evidence-lightbox"' in html and 'aria-modal="true"' in html, "project-03 lightbox"
+    assert "Escape" in html and "prefers-reduced-motion" in html, "project-03 accessible motion"
+    assert '--ui-copy-size: clamp(16px, 1.35vw, 20px)' in html, "project-03 readable UI copy"
+    assert 'href="../index.html#timeline"' in html, "project-03 return link"
+
+
 def assert_rejects_mutation(name, expected_message, check):
     try:
         check()
@@ -271,6 +293,7 @@ for number, title in zip(EXPECTED_NUMBERS, EXPECTED_TITLES):
 validate_project_04_case_study(PAGES["04"])
 validate_project_05_case_study(PAGES["05"])
 validate_project_02_case_study(PAGES["02"])
+validate_project_03_case_study(PAGES["03"])
 
 for html_path in [ROOT / "index.html", *(ROOT / "pages").glob("project-*.html")]:
     html = html_path.read_text(encoding="utf-8-sig")
@@ -312,23 +335,23 @@ assert_rejects_mutation(
     lambda: validate_homepage(third_badge),
 )
 
-deleted_body = PAGES["03"].replace("从市场观察和合作设想到活动落地", "", 1)
-assert deleted_body != PAGES["02"], "deleted-body mutation fixture"
+deleted_body = PAGES["06"].replace("用 Blender 进行汉字 3D 数字化创作，将语言、文化与数字媒介结合。", "", 1)
+assert deleted_body != PAGES["06"], "deleted-body mutation fixture"
 assert_rejects_mutation(
     "deleted legacy body",
-    "legacy content project-03.html",
+    "legacy content project-06.html",
     lambda: validate_project_page(
-        deleted_body, "03", EXPECTED_TITLES[2], LEGACY_PAGE_FINGERPRINTS["03"]
+        deleted_body, "06", EXPECTED_TITLES[5], LEGACY_PAGE_FINGERPRINTS["06"]
     ),
 )
 
-wrong_label = PAGES["03"].replace("[03]", "[99]", 1)
-assert wrong_label != PAGES["02"], "wrong-label mutation fixture"
+wrong_label = PAGES["06"].replace("[06]", "[99]", 1)
+assert wrong_label != PAGES["06"], "wrong-label mutation fixture"
 assert_rejects_mutation(
     "wrong bracketed label",
-    "bracketed labels project-03.html",
+    "bracketed labels project-06.html",
     lambda: validate_project_page(
-        wrong_label, "03", EXPECTED_TITLES[2], LEGACY_PAGE_FINGERPRINTS["03"]
+        wrong_label, "06", EXPECTED_TITLES[5], LEGACY_PAGE_FINGERPRINTS["06"]
     ),
 )
 
