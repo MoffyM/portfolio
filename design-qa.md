@@ -1,44 +1,36 @@
-# Design QA — Project 05 毕业项目网站成果
+# Design QA — Project 02 用户召回策略
 
 **Source visual truth**
 
-- `docs/qa/project-05/01-project04-visual-reference.png` — 已验收的 Project 04 页面视觉方向，1440 × 900。
-- 新 PPT 的 6 页信息结构、文字与 12 张原始证据图作为内容真相来源。
+- `docs/qa/project-05/02-project05-desktop.png` — 已验收的 Project 04/05 暖色报刊杂志视觉方向。
+- 新 PPT 的 10 页信息结构、文字、数据及表格作为内容真相来源；源文件未包含独立图片媒体，因此本页无需图片轮播。
 
 **Implementation evidence**
 
-- `docs/qa/project-05/02-project05-desktop.png` — 1440 × 900，CSS viewport 1440 × 900，device density 1。
-- `docs/qa/project-05/03-project05-mobile-390.png` — 390 × 844，CSS viewport 390 × 844，device density 1。
-- `docs/qa/project-05/04-carousel-mobile.png` — 手机端轮播控件重点状态。
-- `docs/qa/project-05/05-comparison.png` — Project 04 与 Project 05 同视口首屏并排对照。
+- `docs/qa/project-02/01-project02-desktop.png` — 1440 × 900 全页桌面验收图。
+- `docs/qa/project-02/02-project02-mobile-top.png` — 390 × 844 手机首屏。
+- `docs/qa/project-02/03-project02-experiment.png` — 页内导航后的实验表格重点状态。
 
 **State and interactions checked**
 
-- 首屏默认状态、章节锚点导航、返回作品集链接。
-- 3 组原位图片轮播：上一张、下一张、点击图片、左右方向键。
-- 当前图片计数通过 `aria-live="polite"` 更新。
-- 当前图片可放大，Escape 关闭后焦点返回触发按钮。
-- 390px 手机端无横向溢出，轮播控件重排为触控友好布局。
+- 10 个 PPT 对应内容段、返回作品集、章节锚点导航。
+- 三张数据表均使用原生 HTML 表格；390px 下由表格容器局部横向滚动。
+- 桌面与手机端页面均无横向溢出；手机端导航可横向轻扫。
+- `prefers-reduced-motion` 下关闭进入动画，保留完整内容可见性。
 
 **Required fidelity surfaces**
 
-- Fonts and typography: 延续 04 的大号中文衬线标题、等宽元数据和手写批注；层级、字重、换行均清晰。
-- Spacing and layout rhythm: 延续 12 栏编辑网格、细分隔线和大面积留白；桌面与手机端比例稳定。
-- Colors and tokens: 米沙纸色、深炭黑、主站深蓝、陶土红与淡黄高亮映射一致。
-- Image quality and asset fidelity: 12 张图片均直接取自 PPT 原始媒体，不使用占位图或代码绘图；证据图保持原比例与可放大阅读。
-- Copy and content: 6 个章节对应 PPT 6 页叙事，保留 5 类口音、15 个样本、10 次部署及用户反馈等原始事实；未引入外部数据。
+- Fonts and typography: 大号中文衬线标题、等宽元数据、陶土红手写式判断语；正文不低于 16px，章节标记 14px。
+- Spacing and layout rhythm: 12 栏编辑网格、细分隔线和大面积留白；移动端改为单栏叙事。
+- Colors and tokens: 米沙纸色、深炭黑、主站深蓝、陶土红和淡黄高亮与现有 04/05 页面协调。
+- Tables: 流失主因校准、召回策略映射、A/B 实验三处均保留行列结构与重点行高亮。
+- Copy and content: 保留 24 次访谈、2,731 份问卷、18.6 万行为样本、42.4%、66.7%、四层召回、滴滴 567、7.8%、+4.7pp、+5.4% 和 ROI 1.89 等 PPT 原始信息；未引入外部数据。
 
-**Findings and comparison history**
+**Findings**
 
-- First pass — P2: 轮播计数使用 `01 / 04`，会与站点页码测试产生歧义。Fix: 改为 `01 — 04`，保留清晰状态表达。Post-fix evidence: 自动化测试通过，轮播状态正确更新。
-- First pass — P2: 手机端章节结构较长，需要确认轮播按钮不会溢出。Fix: 390px 下改为两列控制按钮、状态与放大按钮独占整行。Post-fix evidence: `04-carousel-mobile.png`，页面 scrollWidth 375 小于 viewport 390。
-- CTA refinement — P2: 原“打开 AccentGuide”是普通文本链接，入口辨识度不足。Fix: 改为陶土红高对比按钮，加入“网站成果 / LIVE SITE”、外链图标、淡黄硬投影与 hover/focus 状态。Post-fix evidence: 更新后的 `02-project05-desktop.png`；按钮 105 × 44 px，链接与新标签页行为保持正确。
-- Type-size refinement — 按用户指定，将返回入口、项目编号、章节导航、LIVE SITE 标签与 CTA 统一为和首屏说明文字相同的响应式字号（桌面实测 19.45px）并设为 800 字重。桌面无横向溢出；390px 页面无横向溢出，章节导航保留横向轻扫能力。
-- Final comparison: 无未解决的 P0/P1/P2。Project 05 在保持 04 视觉系统的同时，用 0→1、二维码和学习产品数据形成自己的信息重点。
+- P2: 首次自动化全页截图中，滚动进入动画使未进入视口的内容显示为空白；实际滚动浏览正常。补充页内导航到实验段的可视验收图，并确认目标段可见。
+- P2: 手机端宽表可能撑宽页面。Fix: 三张表置于 `overflow-x:auto` 容器；实测页面 scrollWidth 390 等于 viewport 390，表格容器宽 390、内部宽 820。
 - P3: 共用 `assets/js/vendor.js` 仍产生 Tailwind CDN 的既有警告；该文件属于全站公共运行时，不在本次单页修改范围。
-
-**Focused comparison**
-
-轮播控件与证据图是本页新增的关键交互，已用 `04-carousel-mobile.png` 单独检查。桌面首屏的字体、网格、色彩与 04 通过 `05-comparison.png` 对照。
+- Final comparison: 无未解决的 P0/P1/P2；视觉语言延续 04/05，页面重点转向用户洞察、分层策略和实验结果。
 
 final result: passed

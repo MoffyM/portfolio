@@ -16,7 +16,6 @@ EXPECTED_TITLES = [
 ]
 # origin/main project-01..05 after normalizing only the allowed numbering fields.
 LEGACY_PAGE_FINGERPRINTS = {
-    "02": "9546ca62c1ea15aa242f086ecf831fc2f8fef8506cea3a079e7ecb0dab7821ad",
     "03": "fdfc0c00cfed29309a0affbbe1c32a3a19b24bc53742c5d0d4a1fea3de5ec9b2",
     "06": "61835c7dbb0df71bb9d974f923f380fdc5d821fd464ef8029d3351f86460a9c5",
 }
@@ -230,6 +229,23 @@ def validate_project_05_case_study(html):
     assert html.count('font-size: var(--ui-copy-size)') >= 5, "project-05 enlarged navigation and CTA text"
 
 
+def validate_project_02_case_study(html):
+    required_text = [
+        "24", "2,731", "18.6万", "42.4%", "66.7%", "四层召回",
+        "Uplift", "滴滴 567", "7.8%", "+4.7pp", "+5.4%", "1.89",
+        "体验修复 + 精准分层 + 节奏实验",
+    ]
+    for text in required_text:
+        assert text in html, f"project-02 evidence: {text}"
+
+    assert 'data-case-study="project-02"' in html, "project-02 case study root"
+    assert html.count('data-slide="') == 10, "project-02 follows ten-slide source structure"
+    assert html.count('class="data-table') == 3, "project-02 source tables"
+    assert '--ui-copy-size: clamp(16px, 1.35vw, 20px)' in html, "project-02 readable UI copy"
+    assert 'href="../index.html#timeline"' in html, "project-02 return link"
+    assert "prefers-reduced-motion" in html, "project-02 accessible motion"
+
+
 def assert_rejects_mutation(name, expected_message, check):
     try:
         check()
@@ -254,6 +270,7 @@ for number, title in zip(EXPECTED_NUMBERS, EXPECTED_TITLES):
 
 validate_project_04_case_study(PAGES["04"])
 validate_project_05_case_study(PAGES["05"])
+validate_project_02_case_study(PAGES["02"])
 
 for html_path in [ROOT / "index.html", *(ROOT / "pages").glob("project-*.html")]:
     html = html_path.read_text(encoding="utf-8-sig")
@@ -295,23 +312,23 @@ assert_rejects_mutation(
     lambda: validate_homepage(third_badge),
 )
 
-deleted_body = PAGES["02"].replace("在滴滴参与沉默与流失用户召回", "", 1)
+deleted_body = PAGES["03"].replace("从市场观察和合作设想到活动落地", "", 1)
 assert deleted_body != PAGES["02"], "deleted-body mutation fixture"
 assert_rejects_mutation(
     "deleted legacy body",
-    "legacy content project-02.html",
+    "legacy content project-03.html",
     lambda: validate_project_page(
-        deleted_body, "02", EXPECTED_TITLES[1], LEGACY_PAGE_FINGERPRINTS["02"]
+        deleted_body, "03", EXPECTED_TITLES[2], LEGACY_PAGE_FINGERPRINTS["03"]
     ),
 )
 
-wrong_label = PAGES["02"].replace("[02]", "[99]", 1)
+wrong_label = PAGES["03"].replace("[03]", "[99]", 1)
 assert wrong_label != PAGES["02"], "wrong-label mutation fixture"
 assert_rejects_mutation(
     "wrong bracketed label",
-    "bracketed labels project-02.html",
+    "bracketed labels project-03.html",
     lambda: validate_project_page(
-        wrong_label, "02", EXPECTED_TITLES[1], LEGACY_PAGE_FINGERPRINTS["02"]
+        wrong_label, "03", EXPECTED_TITLES[2], LEGACY_PAGE_FINGERPRINTS["03"]
     ),
 )
 
