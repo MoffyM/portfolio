@@ -1,126 +1,82 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="周芷琦用户召回策略案例：从用户洞察、分层、场景触达到实验验证的完整运营闭环。">
     <title>用户召回策略 - 周芷琦 · 个人作品集</title>
     <link rel="stylesheet" href="../assets/css/main.css">
     <style>
-        /* 二级页小调整 */
-        .ppt-frame { background: #f4f1eb; border: 2px solid #1a1a1a; }
-        .ppt-shadow { box-shadow: 8px 8px 0 rgba(26,26,26,1); }
+        :root {
+            --paper:#f6f4ee; --ink:#1a1a1a; --navy:#173f61; --red:#c84b2a;
+            --yellow:#eadf86; --mint:#dce7df; --rule:rgba(26,26,26,.16); --muted:rgba(26,26,26,.68);
+            --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+            --serif:"Noto Serif SC","Songti SC",SimSun,serif;
+            --ui-copy-size: clamp(16px, 1.35vw, 20px);
+        }
+        *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;color:var(--ink);background:#e9e6df;font-family:var(--serif);-webkit-font-smoothing:antialiased} a,button{font:inherit} strong{font-weight:900}
+        .case-shell{width:min(100%,1440px);margin:auto;overflow:hidden;background:var(--paper);border-inline:1px solid var(--rule)}
+        .display{font-family:var(--serif);font-weight:900;letter-spacing:-.055em}.meta{font-family:var(--mono);font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+        .case-topbar{min-height:72px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule)}
+        .back-link,.case-index,.section-nav a{color:var(--navy);font-family:var(--mono);font-size:var(--ui-copy-size);font-weight:800;line-height:1.25;letter-spacing:.08em;text-decoration:none}
+        .back-link{display:inline-flex;align-items:center;gap:10px}.back-link iconify-icon{font-size:1.15em}.back-link:hover,.back-link:focus-visible,.section-nav a:hover,.section-nav a:focus-visible{color:var(--red)}
+        .section-nav{min-height:54px;padding:0 28px;display:flex;align-items:center;gap:clamp(22px,2.2vw,34px);overflow-x:auto;border-bottom:1px solid var(--rule);white-space:nowrap;scrollbar-width:none}.section-nav::-webkit-scrollbar{display:none}.section-nav a{color:var(--muted)}
+        .grid-12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr))}
+        .hero-copy{grid-column:span 8;min-height:610px;padding:clamp(54px,7vw,102px) clamp(30px,6vw,86px) 54px;border-right:1px solid var(--rule);display:flex;flex-direction:column}
+        .hero-side{grid-column:span 4;min-height:610px;padding:54px clamp(28px,4vw,54px);display:flex;flex-direction:column;justify-content:space-between}
+        .eyebrow{color:var(--navy);font:800 14px/1.5 var(--mono);letter-spacing:.14em}.hero-title{max-width:900px;margin:28px 0;font-size:clamp(52px,6vw,92px);line-height:.98}.highlight{padding-inline:.05em;background:var(--yellow)}
+        .hero-lede{max-width:710px;margin:0;font-size:var(--ui-copy-size);line-height:1.85}.hero-tags{margin-top:auto;padding-top:44px;display:flex;gap:10px;flex-wrap:wrap}.stamp{padding:8px 12px;border:1px solid var(--navy);border-radius:999px;color:var(--navy);font:800 14px/1 var(--mono)}.stamp.solid{color:var(--paper);background:var(--navy)}
+        .hand-note{color:var(--red);font-family:"Segoe Print",KaiTi,cursive;font-size:clamp(23px,2.4vw,34px);font-weight:700;line-height:1.45;transform:rotate(-3deg)}.hero-number{color:var(--navy);font-size:clamp(78px,8vw,112px);line-height:.9}.hero-number-label{margin-top:14px;font:800 14px/1.5 var(--mono);letter-spacing:.1em}
+        .hero-summary{padding:22px;border-left:4px solid var(--red);background:rgba(234,223,134,.28);font-size:16px;line-height:1.75}.hero-summary strong{display:block;margin-bottom:7px;color:var(--navy);font-size:19px}
+        .metrics{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--rule)}.metric{min-height:170px;padding:28px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--rule)}.metric:last-child{border-right:0}.metric-value{color:var(--navy);font-size:clamp(38px,4.2vw,62px);line-height:1}.metric-label{color:var(--muted);font:800 14px/1.5 var(--mono);letter-spacing:.08em}
+        .case-section{padding:clamp(72px,8vw,118px) clamp(24px,6vw,86px);border-bottom:1px solid var(--rule)}.section-kicker{grid-column:1/span 2;color:var(--red);font:800 14px/1.5 var(--mono);letter-spacing:.1em}.section-main{grid-column:3/-1}.section-title{max-width:1000px;margin:0 0 30px;font-size:clamp(36px,4.4vw,66px);line-height:1.08}.section-intro{max-width:790px;margin:0 0 42px;color:var(--muted);font-size:var(--ui-copy-size);line-height:1.85}
+        .pipeline{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--rule)}.pipeline-step{min-height:185px;padding:24px 20px;border-right:1px solid var(--rule)}.pipeline-step:last-child{border-right:0}.pipeline-no{color:var(--red);font:800 14px/1 var(--mono)}.pipeline-step h3{margin:26px 0 10px;color:var(--navy);font-size:23px}.pipeline-step p{margin:0;color:var(--muted);font-size:16px;line-height:1.7}
+        .judgment{margin-top:34px;padding:28px;border-left:5px solid var(--red);background:rgba(234,223,134,.26);font-size:clamp(21px,2vw,29px);font-weight:900;line-height:1.55}
+        .insight-grid{display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid var(--rule)}.insight-card{min-height:190px;padding:26px;border-right:1px solid var(--rule)}.insight-card:last-child{border-right:0}.insight-card strong{display:block;color:var(--navy);font-size:clamp(38px,4vw,58px)}.insight-card span{display:block;margin-top:10px;color:var(--muted);font-size:16px;line-height:1.65}
+        .evidence-chain{margin-top:38px;display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:18px;align-items:center}.evidence-node{min-height:145px;padding:22px;border:1px solid var(--rule)}.evidence-node b{display:block;margin-bottom:12px;color:var(--red);font-size:18px}.evidence-node p{margin:0;font-size:17px;line-height:1.7}.chain-arrow{color:var(--red);font-size:28px}
+        .table-wrap{margin-top:38px;overflow-x:auto;border:1px solid var(--rule)}.data-table{width:100%;min-width:820px;border-collapse:collapse;background:rgba(255,255,255,.34);font-size:16px;line-height:1.55}.data-table caption{padding:18px 20px;text-align:left;color:var(--navy);background:var(--mint);font-size:19px;font-weight:900}.data-table th,.data-table td{padding:16px 18px;text-align:left;vertical-align:top;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}.data-table th:last-child,.data-table td:last-child{border-right:0}.data-table tr:last-child td{border-bottom:0}.data-table thead th{color:var(--paper);background:var(--navy);font-family:var(--mono);font-size:14px;letter-spacing:.05em}.data-table tbody tr:hover{background:rgba(234,223,134,.18)}.data-table .emphasis{color:var(--red);font-weight:900}.data-table .selected{background:rgba(234,223,134,.35)}
+        .quotes{margin-top:34px;display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--rule)}.quote{min-height:190px;padding:25px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}.quote:nth-child(even){border-right:0}.quote blockquote{margin:0;font-size:18px;line-height:1.75}.quote cite{display:block;margin-top:16px;color:var(--red);font:800 14px/1.5 var(--mono);font-style:normal}
+        .segments{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--rule)}.segment{min-height:250px;padding:28px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}.segment:nth-child(even){border-right:0}.segment:nth-last-child(-n+2){border-bottom:0}.segment-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-end}.segment-code{color:var(--navy);font-size:54px}.segment-share{color:var(--red);font-size:30px}.segment h3{margin:20px 0 12px;font-size:24px}.segment p{margin:0;color:var(--muted);font-size:16px;line-height:1.75}
+        .scenario-grid{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--rule)}.scenario{min-height:235px;padding:25px 20px;border-right:1px solid var(--rule)}.scenario:last-child{border-right:0}.scenario-mark{color:var(--red);font:900 24px/1 var(--mono)}.scenario h3{margin:28px 0 10px;color:var(--navy);font-size:24px}.scenario p{margin:7px 0;color:var(--muted);font-size:16px;line-height:1.65}.scenario strong{color:var(--ink)}
+        .result-band{padding:clamp(72px,8vw,112px) clamp(24px,6vw,86px);color:var(--paper);background:var(--navy)}.result-band .section-kicker{color:var(--yellow)}.result-band .section-title{color:var(--paper)}.results{display:grid;grid-template-columns:repeat(4,1fr);margin-top:42px;border-block:1px solid rgba(255,255,255,.28)}.result{padding:30px 22px;border-right:1px solid rgba(255,255,255,.28)}.result:last-child{border-right:0}.result strong{display:block;color:var(--yellow);font-size:clamp(38px,4.4vw,62px)}.result span{display:block;margin-top:10px;font-size:15px;line-height:1.6}
+        .method-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--rule)}.method{min-height:230px;padding:26px;border-right:1px solid var(--rule)}.method:last-child{border-right:0}.method-no{color:var(--red);font:800 15px/1 var(--mono)}.method h3{margin:28px 0 12px;color:var(--navy);font-size:23px}.method p{margin:0;color:var(--muted);font-size:16px;line-height:1.75}
+        .final-link{margin-top:46px;display:inline-flex;align-items:center;gap:10px;color:var(--navy);font:800 16px/1 var(--mono);text-decoration:none}.final-link:hover{color:var(--red)}.case-footer{min-height:68px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;font:800 15px/1.4 var(--mono)}
+        .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}.reveal.is-visible{opacity:1;transform:none}:focus-visible{outline:3px solid var(--red);outline-offset:4px}
+        @media(max-width:900px){.hero-copy{grid-column:span 7}.hero-side{grid-column:span 5}.section-kicker{grid-column:1/span 3}.section-main{grid-column:4/-1}.pipeline,.scenario-grid,.method-grid{grid-template-columns:repeat(2,1fr)}.pipeline-step:nth-child(2),.scenario:nth-child(2),.method:nth-child(2){border-right:0}.pipeline-step:nth-child(-n+2),.scenario:nth-child(-n+2),.method:nth-child(-n+2){border-bottom:1px solid var(--rule)}.evidence-chain{grid-template-columns:1fr}.chain-arrow{transform:rotate(90deg);justify-self:center}}
+        @media(max-width:767px){html{scroll-behavior:auto}.case-shell{border-inline:0}.case-topbar,.section-nav{padding-inline:16px}.case-topbar{min-height:68px}.section-nav{min-height:58px;gap:22px}.hero-copy,.hero-side,.section-kicker,.section-main{grid-column:1/-1}.hero-copy{min-height:auto;padding:58px 22px 42px;border-right:0;border-bottom:1px solid var(--rule)}.hero-side{min-height:430px;padding:36px 22px}.hero-title{font-size:clamp(44px,12.6vw,62px)}.metrics,.insight-grid,.pipeline,.segments,.scenario-grid,.quotes,.results,.method-grid{grid-template-columns:1fr}.metric,.insight-card,.pipeline-step,.segment,.scenario,.quote,.result,.method{border-right:0;border-bottom:1px solid var(--rule)}.metric:last-child,.insight-card:last-child,.pipeline-step:last-child,.segment:last-child,.scenario:last-child,.quote:last-child,.result:last-child,.method:last-child{border-bottom:0}.segment:nth-last-child(2){border-bottom:1px solid var(--rule)}.case-section,.result-band{padding:68px 22px}.section-kicker{margin-bottom:24px}.table-wrap{margin-inline:-22px;border-inline:0}.data-table{font-size:15px}.data-table th,.data-table td{padding:14px}.case-footer{padding:16px;flex-wrap:wrap}}
+        @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
     </style>
 </head>
-<body class="bg-base text-ink font-mono antialiased overflow-x-hidden">
+<body>
+<main class="case-shell" data-case-study="project-02">
+    <header class="case-topbar"><a class="back-link" href="../index.html#timeline"><iconify-icon icon="solar:arrow-left-linear" aria-hidden="true"></iconify-icon>返回作品集</a><span class="case-index">项目 / 02</span></header>
+    <nav class="section-nav" aria-label="案例页目录"><a href="#overview">概览</a><a href="#insight">洞察</a><a href="#priority">校准</a><a href="#strategy">策略</a><a href="#segment">分层</a><a href="#scenario">场景</a><a href="#experiment">实验</a><a href="#results">结果</a><a href="#reflection">复盘</a></nav>
 
-    <!-- 顶部标识 -->
-    <main class="max-w-[1440px] mx-auto border-x border-grid relative flex flex-col min-h-screen">
+    <section class="grid-12" id="overview" data-slide="01">
+        <div class="hero-copy"><div class="eyebrow">项目 02 · 用户运营实习 / 2026</div><h1 class="hero-title display">把召回预算，<br>花在<span class="highlight">对的人</span>身上。</h1><p class="hero-lede">围绕沉默与流失用户，完成从需求识别、用户洞察、分层策略、场景触达，到 A/B 实验与增量归因的召回运营闭环。</p><div class="hero-tags"><span class="stamp solid">USER OPERATIONS</span><span class="stamp">用户召回</span><span class="stamp">实验设计</span><span class="stamp">分层运营</span><span class="stamp">[02]</span></div></div>
+        <aside class="hero-side"><div class="hand-note">“召回不只是发券，<br>而是先判断谁值得被影响。”</div><div><div class="hero-number display">7.8%</div><div class="hero-number-label">BEST GROUP<br>RECALL RATE</div></div><div class="hero-summary"><strong>核心判断</strong>体验修复、精准分层和触达节奏，必须一起被验证。</div></aside>
+    </section>
 
-        <header class="flex justify-between items-center py-3 px-6 border-b border-grid text-xs uppercase tracking-widest font-semibold text-ink/70">
-            <a href="../index.html#timeline" class="flex items-center gap-4 hover:text-accent transition-colors">
-                <div class="w-3 h-3 bg-secondary"></div>
-                <span>周芷琦 · 个人作品集</span>
-            </a>
-            <div class="hidden md:flex items-center gap-2 text-secondary">
-                <iconify-icon icon="solar:target-linear" class="text-base"></iconify-icon>
-            </div>
-            <div class="hidden md:flex items-center gap-4">
-                <span>项目 / 02</span>
-            </div>
-        </header>
+    <section class="case-section" data-slide="02"><div class="grid-12 reveal"><div class="section-kicker">01 / OVERVIEW</div><div class="section-main"><h2 class="section-title display">用户召回运营，如何从“发消息”变成一条可验证的闭环？</h2><div class="pipeline"><article class="pipeline-step"><span class="pipeline-no">01</span><h3>需求识别</h3><p>访谈 + 问卷 + 行为数据。</p></article><article class="pipeline-step"><span class="pipeline-no">02</span><h3>策略设计</h3><p>痛点优先级 + 权益组合。</p></article><article class="pipeline-step"><span class="pipeline-no">03</span><h3>分层触达</h3><p>价值 / 难易度 / 场景。</p></article><article class="pipeline-step"><span class="pipeline-no">04</span><h3>实验验证</h3><p>节奏、护栏与增量归因。</p></article></div><div class="judgment">用户召回不仅是发券，也是判断如何将有限资源花在对的人身上。</div></div></div></section>
 
-        <!-- Hero -->
-        <section class="relative border-b border-grid flex flex-col p-8 md:p-16 overflow-hidden">
-            <div class="text-accent font-semibold tracking-widest mb-6 border-b-2 border-secondary inline-block pb-1 self-start">
-                项目 02 · 用户运营
-            </div>
-            <h1 class="font-sans font-bold text-5xl md:text-7xl leading-[0.9] tracking-tight uppercase mb-8 text-accent">
-                用户召回策略
-            </h1>
-            <p class="text-sm md:text-base max-w-2xl leading-relaxed font-semibold mb-12">
-                在滴滴参与沉默与流失用户召回，从需求识别、策略设计到实验验证和分群触达，推动召回率提升7.8%、订单量提升5.4%。
-            </p>
+    <section class="case-section" id="insight" data-slide="03"><div class="grid-12 reveal"><div class="section-kicker">02 / USER INSIGHT</div><div class="section-main"><h2 class="section-title display">判断真实流失触发点，要让自述原因和行为证据互相校准。</h2><div class="insight-grid"><div class="insight-card"><strong class="display">24</strong><span>1V1 深访，理解用户如何描述流失。</span></div><div class="insight-card"><strong class="display">2,731</strong><span>有效问卷，建立可量化的原因分布。</span></div><div class="insight-card"><strong class="display">18.6万</strong><span>行为样本，验证用户流失前真实发生了什么。</span></div></div><div class="evidence-chain"><div class="evidence-node"><b>自述原因</b><p>“价格贵”</p></div><iconify-icon class="chain-arrow" icon="solar:arrow-right-linear"></iconify-icon><div class="evidence-node"><b>行为证据</b><p>等待超时 / 多次取消</p></div><iconify-icon class="chain-arrow" icon="solar:arrow-right-linear"></iconify-icon><div class="evidence-node"><b>运营判断</b><p>优先修复速度体验</p></div></div><div class="judgment">441 位自述价格因素的用户中，<span class="highlight">42.4%</span> 在流失前出现等待超时或多次取消。</div></div></div></section>
 
-            <!-- 关键数据 -->
-            <div class="flex flex-wrap gap-4 text-xs font-semibold tracking-widest">
-                                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">+7.8% 召回率</span>
-                    <span class="text-secondary">[02]</span>
-                </div>
-                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">+5.4% 订单量</span>
-                    <span class="text-secondary">[02]</span>
-                </div>
-                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">A/B 实验</span>
-                    <span class="text-secondary">[02]</span>
-                </div>
-                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">分层运营</span>
-                    <span class="text-secondary">[02]</span>
-                </div>
+    <section class="case-section" id="priority" data-slide="04"><div class="grid-12 reveal"><div class="section-kicker">03 / PRIORITY</div><div class="section-main"><h2 class="section-title display">叫车速度的影响被低估，价格因素的影响被高估。</h2><p class="section-intro">访谈揭示了用户自述原因与真实原因之间的偏差，这一发现直接驱动后续问卷设计中的行为数据校准。</p><div class="table-wrap"><table class="data-table"><caption>流失主因校准｜问卷自述 + 行为数据交叉验证</caption><thead><tr><th>访谈发现</th><th>受访者提及数</th><th>占比</th><th>与问卷一致性</th></tr></thead><tbody><tr class="selected"><td><strong>叫车速度慢 / 叫不到车</strong></td><td>16 人</td><td class="emphasis">66.7%</td><td>部分被掩盖：7 人选择其他原因</td></tr><tr><td>服务体验不佳</td><td>6 人</td><td>25.0%</td><td>基本一致</td></tr><tr><td>价格因素</td><td>8 人（含 5 人为表面原因）</td><td>33.3%</td><td>存在高估：5 人实为体验问题</td></tr><tr><td>安全顾虑</td><td>2 人</td><td>8.3%</td><td>基本一致</td></tr></tbody></table></div><div class="quotes"><div class="quote"><blockquote>“那次等了快 15 分钟都没人接单，我就换了个平台，结果人家 30 秒就来了。”</blockquote><cite>用户 A · 北京 · 28 岁</cite></div><div class="quote"><blockquote>“预估 5 分钟，结果等了 12 分钟，司机还取消了。这种事遇到好几次了。”</blockquote><cite>用户 F · 上海 · 32 岁</cite></div><div class="quote"><blockquote>“其实也不是差那几块钱，就是体验不好之后觉得不值这个价。”</blockquote><cite>用户 C · 广州 · 30 岁</cite></div><div class="quote"><blockquote>“要是每次都能很快叫到车，我也不会在意那几块。”</blockquote><cite>用户 H · 杭州 · 29 岁</cite></div></div></div></div></section>
 
-            </div>
-        </section>
+    <section class="case-section" id="strategy" data-slide="05"><div class="grid-12 reveal"><div class="section-kicker">04 / STRATEGY MAP</div><div class="section-main"><h2 class="section-title display">不同流失原因，需要不同的权益、体验保障和运营目的。</h2><div class="table-wrap"><table class="data-table"><caption>痛点分层 + 运营策略</caption><thead><tr><th>流失原因</th><th>权益</th><th>体验保障</th><th>运营目的</th></tr></thead><tbody><tr class="selected"><td><strong>60% 速度</strong></td><td>优先叫车券</td><td>28 天运力保障</td><td>避免召回后二次流失</td></tr><tr><td><strong>25% 服务</strong></td><td>清新车专享券</td><td>体验问题定向治理</td><td>让用户重新感知品质</td></tr><tr><td><strong>15% 价格</strong></td><td>分层优惠券</td><td>Uplift 精准补贴</td><td>把券发给会被影响的人</td></tr><tr><td><strong>5% 安全</strong></td><td>安全功能强化</td><td>夜间场景专项权益</td><td>不以低价替代安全感</td></tr></tbody></table></div></div></div></section>
 
-        <!-- PPT 展示区 -->
-        <section class="relative border-b border-grid flex flex-col p-8 md:p-16 bg-grid/10">
-            <header class="flex justify-between items-center mb-12 text-xs font-semibold uppercase tracking-widest border-b border-grid pb-4">
-                <span class="text-accent">// PROJECT DECK</span>
-                <span class="text-secondary">02 / 06</span>
-            </header>
+    <section class="case-section" id="segment" data-slide="06"><div class="grid-12 reveal"><div class="section-kicker">05 / SEGMENTATION</div><div class="section-main"><h2 class="section-title display">四层召回：同时看召回难易度、用户价值和增长潜力。</h2><div class="segments"><article class="segment"><div class="segment-head"><strong class="segment-code display">L1</strong><strong class="segment-share display">15%</strong></div><h3>高价值易召回</h3><p>优先叫车券 + 28 天运力保障 + AI 智能外呼。</p></article><article class="segment"><div class="segment-head"><strong class="segment-code display">L2</strong><strong class="segment-share display">20%</strong></div><h3>中价值场景驱动</h3><p>通勤 / 周末场景化触达 + 分层优惠券 + 清新车专享券。</p></article><article class="segment"><div class="segment-head"><strong class="segment-code display">L3</strong><strong class="segment-share display">35%</strong></div><h3>价格敏感摇摆</h3><p>Uplift 精准补贴 + 券包养成 + 频次控制。</p></article><article class="segment"><div class="segment-head"><strong class="segment-code display">L4</strong><strong class="segment-share display">30%</strong></div><h3>低价值难召回</h3><p>低成本 Push + 场景验证券，不投入大额补贴。</p></article></div><div class="judgment">L1 + L2 约占 35%，却贡献约 65% 的增量完单；资源应向高价值、高潜力人群倾斜。</div></div></div></section>
 
-            <!-- PPT 容器 - 等你给内容 -->
-            <div class="ppt-frame ppt-shadow aspect-video w-full flex flex-col items-center justify-center p-12 text-center">
-                <iconify-icon icon="solar:gallery-wide-linear" class="text-6xl text-ink/30 mb-4"></iconify-icon>
-                <p class="text-sm font-semibold tracking-widest uppercase text-ink/50">
-                    PPT 展示区
-                </p>
-                <p class="text-xs text-ink/40 mt-2 max-w-md">
-                    把项目 PPT 的内容（截图、PDF 转图片、或者直接放文字段落）放在这里即可。
-                </p>
-            </div>
+    <section class="case-section" id="scenario" data-slide="07"><div class="grid-12 reveal"><div class="section-kicker">06 / SCENARIO</div><div class="section-main"><h2 class="section-title display">触达不是固定模板，而是用户状态 × 实时场景 × 策略权益。</h2><div class="scenario-grid"><article class="scenario"><span class="scenario-mark">07:30</span><h3>早高峰</h3><p><strong>通勤刚需</strong></p><p>运力保障 + 提前触达</p></article><article class="scenario"><span class="scenario-mark">RAIN</span><h3>雨天</h3><p><strong>即时供需紧张</strong></p><p>速度承诺 + 兜底权益</p></article><article class="scenario"><span class="scenario-mark">HOLIDAY</span><h3>节日</h3><p><strong>出行意愿上升</strong></p><p>目的地内容 + 场景券</p></article><article class="scenario"><span class="scenario-mark">FRI—SUN</span><h3>滴滴 567</h3><p><strong>周末休闲出行</strong></p><p>模块曝光 + 个性化推荐</p></article></div></div></div></section>
 
-            <!-- 占位 PPT 卡片 - 之后替换 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 02</span>
-                    <p class="text-xs text-ink/60 mt-2">背景与目标</p>
-                </div>
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 03</span>
-                    <p class="text-xs text-ink/60 mt-2">过程与方法</p>
-                </div>
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 04</span>
-                    <p class="text-xs text-ink/60 mt-2">结果与数据</p>
-                </div>
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 05</span>
-                    <p class="text-xs text-ink/60 mt-2">复盘与思考</p>
-                </div>
-            </div>
-        </section>
+    <section class="case-section" id="experiment" data-slide="08"><div class="grid-12 reveal"><div class="section-kicker">07 / EXPERIMENT</div><div class="section-main"><h2 class="section-title display">触达频次需要通过实验确定：太少无感，太多打扰。</h2><p class="section-intro">28 天周期同时观察曝光、点击、转化、ROI、覆盖用户数及退订护栏，最终选择 E 组：召回率 7.8%，退订率 1.1%，7 日复购率 19.6%。</p><div class="table-wrap"><table class="data-table"><caption>A/B 实验｜最优触达节奏</caption><thead><tr><th>组别</th><th>触达次数</th><th>间隔</th><th>28 天内节奏</th><th>样本量</th><th>占比</th></tr></thead><tbody><tr><td>A 对照组</td><td>0 次</td><td>—</td><td>无干预</td><td>10,000</td><td>10%</td></tr><tr><td>B</td><td>2 次</td><td>14 天</td><td>Day1 + Day15</td><td>10,000</td><td>10%</td></tr><tr><td>C</td><td>3 次</td><td>9 天</td><td>Day1 + Day10 + Day19</td><td>10,000</td><td>10%</td></tr><tr><td>D</td><td>4 次</td><td>7 天</td><td>Day1 + Day8 + Day15 + Day22</td><td>15,000</td><td>15%</td></tr><tr class="selected"><td><strong>E · 最优</strong></td><td class="emphasis">5 次</td><td>5 天</td><td>Day1 + Day6 + Day11 + Day16 + Day21</td><td>15,000</td><td>15%</td></tr><tr><td>F</td><td>5 次</td><td>4 天</td><td>Day1 + Day5 + Day9 + Day13 + Day17</td><td>15,000</td><td>15%</td></tr><tr><td>G</td><td>7 次</td><td>4 天</td><td>Day1 + 5 + 9 + 13 + 17 + 21 + 25</td><td>10,000</td><td>10%</td></tr><tr><td>H</td><td>7 次</td><td>3 天</td><td>Day1 + 4 + 7 + 10 + 13 + 16 + 19</td><td>10,000</td><td>10%</td></tr><tr><td>I 原策略</td><td>3 次</td><td>不固定</td><td>原运营节奏</td><td>5,000</td><td>5%</td></tr></tbody></table></div></div></div></section>
 
-        <!-- 底部 -->
-        <footer class="border-t border-grid py-4 px-6 flex justify-between items-center text-[10px] font-semibold uppercase tracking-widest text-ink bg-base z-30">
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 bg-secondary"></div>
-                <span>PEOPLE. STORIES. IDEAS. GROWTH.</span>
-            </div>
-            <a href="../index.html#timeline" class="text-accent hover:text-ink transition-colors">
-                ← 返回主页
-            </a>
-            <div class="flex items-center gap-4">
-                <span>© 2026 周芷琦</span>
-                <div class="w-2 h-2 bg-secondary"></div>
-            </div>
-        </footer>
+    <section class="result-band" id="results" data-slide="09"><div class="grid-12 reveal"><div class="section-kicker">08 / RESULTS</div><div class="section-main"><h2 class="section-title display">结果数据支撑：增量来自策略，而不是大盘自然上涨。</h2><div class="results"><div class="result"><strong class="display">7.8%</strong><span>实验组召回率</span></div><div class="result"><strong class="display">+4.7pp</strong><span>较对照组增量</span></div><div class="result"><strong class="display">+5.4%</strong><span>订单量提升</span></div><div class="result"><strong class="display">1.89</strong><span>最优组 ROI</span></div></div><div class="judgment" style="color:var(--ink)">大盘同期保持 3.1%；7 次触达虽略高，但退订率显著上升。“体验修复 + 精准分层 + 节奏实验”优于单纯加券。</div></div></div></section>
 
-    </main>
-
-    <script src="../assets/js/vendor.js"></script>
-    <script src="../assets/js/iconify.js"></script>
-    <script src="../assets/js/tailwind-config.js"></script>
+    <section class="case-section" id="reflection" data-slide="10"><div class="grid-12 reveal"><div class="section-kicker">09 / CONTRIBUTION</div><div class="section-main"><h2 class="section-title display">这段经历留下的，是一套可复用的用户运营方法。</h2><div class="method-grid"><article class="method"><span class="method-no">01</span><h3>用户洞察</h3><p>把访谈、问卷与行为数据放在一起判断。</p></article><article class="method"><span class="method-no">02</span><h3>产品用户思维</h3><p>先修复体验，再设计权益和触达路径。</p></article><article class="method"><span class="method-no">03</span><h3>策略与实验</h3><p>把模糊想法拆成单变量、可度量实验。</p></article><article class="method"><span class="method-no">04</span><h3>分层运营</h3><p>兼顾用户价值、增长潜力与打扰成本。</p></article></div><div class="judgment">从用户问题出发，完成“洞察—策略—分群—触达—实验—复盘”的完整链路。</div><a class="final-link" href="../index.html#timeline"><iconify-icon icon="solar:arrow-left-linear"></iconify-icon>返回作品集 / VIEW ALL PROJECTS</a></div></div></section>
+    <footer class="case-footer"><span>02 / 06</span><span>所有数据均经脱敏处理，仅用于复述实习经历</span><span>© 2026 周芷琦</span></footer>
+</main>
+<script src="../assets/js/vendor.js"></script><script src="../assets/js/iconify.js"></script><script src="../assets/js/tailwind-config.js"></script>
+<script>(()=>{const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const items=document.querySelectorAll('.reveal');if(reduced||!('IntersectionObserver'in window))items.forEach(x=>x.classList.add('is-visible'));else{const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}}),{threshold:.08});items.forEach(x=>observer.observe(x))}})();</script>
 </body>
 </html>

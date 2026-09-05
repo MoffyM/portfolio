@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -6,121 +6,1011 @@
     <title>跨境项目管理 - 周芷琦 · 个人作品集</title>
     <link rel="stylesheet" href="../assets/css/main.css">
     <style>
-        /* 二级页小调整 */
-        .ppt-frame { background: #f4f1eb; border: 2px solid #1a1a1a; }
-        .ppt-shadow { box-shadow: 8px 8px 0 rgba(26,26,26,1); }
+        :root {
+            --paper: #f4f1eb;
+            --ink: #1a1a1a;
+            --navy: #1a3b5c;
+            --red: #ea4313;
+            --highlight: #eadb87;
+            --rule: rgba(26, 26, 26, 0.18);
+            --soft-navy: rgba(26, 59, 92, 0.08);
+            --serif: Georgia, "Source Serif 4", "Noto Serif SC", "Songti SC", serif;
+            --mono: "JetBrains Mono", Consolas, "SFMono-Regular", monospace;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: var(--paper);
+            font-family: var(--serif);
+            overflow-x: hidden;
+        }
+        body.lightbox-open { overflow: hidden; }
+        a { color: inherit; }
+        button { font: inherit; }
+        img { display: block; }
+
+        .display {
+            font-family: var(--serif);
+            font-weight: 900;
+            letter-spacing: -0.045em;
+        }
+        .meta {
+            font-family: var(--mono);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+        .case-shell {
+            width: min(100%, 1440px);
+            margin: 0 auto;
+            border-inline: 1px solid var(--rule);
+            background: var(--paper);
+        }
+        .case-topbar {
+            min-height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 0 28px;
+            border-bottom: 1px solid var(--rule);
+            background: rgba(244, 241, 235, 0.96);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+        .back-link {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--navy);
+            font: 700 11px/1 var(--mono);
+            letter-spacing: 0.1em;
+            text-decoration: none;
+        }
+        .back-link iconify-icon { font-size: 18px; }
+        .back-link:hover { color: var(--red); }
+        .case-index {
+            color: rgba(26, 26, 26, 0.62);
+            font: 700 10px/1 var(--mono);
+            letter-spacing: 0.14em;
+        }
+        .section-nav {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            overflow-x: auto;
+            padding: 12px 28px;
+            border-bottom: 1px solid var(--rule);
+            scrollbar-width: none;
+            white-space: nowrap;
+        }
+        .section-nav::-webkit-scrollbar { display: none; }
+        .section-nav a {
+            color: rgba(26, 26, 26, 0.66);
+            font: 700 9px/1 var(--mono);
+            letter-spacing: 0.12em;
+            text-decoration: none;
+        }
+        .section-nav a:hover,
+        .section-nav a:focus-visible { color: var(--red); }
+
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+        }
+        .hero-copy {
+            grid-column: span 8;
+            min-height: 610px;
+            padding: clamp(52px, 7vw, 104px) clamp(28px, 6vw, 86px) 56px;
+            border-right: 1px solid var(--rule);
+            display: flex;
+            flex-direction: column;
+        }
+        .hero-side {
+            grid-column: span 4;
+            min-height: 610px;
+            padding: 54px clamp(24px, 4vw, 54px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .eyebrow {
+            color: var(--navy);
+            font: 800 10px/1.4 var(--mono);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+        .hero-title {
+            max-width: 940px;
+            margin: 28px 0 28px;
+            font-size: clamp(52px, 6.2vw, 94px);
+            line-height: 0.97;
+        }
+        .hero-title mark {
+            color: inherit;
+            background: linear-gradient(transparent 62%, var(--highlight) 62%);
+        }
+        .hero-lede {
+            max-width: 700px;
+            margin: 0;
+            font-size: clamp(16px, 1.35vw, 20px);
+            line-height: 1.8;
+        }
+        .hero-role {
+            margin-top: auto;
+            padding-top: 54px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .stamp {
+            display: inline-flex;
+            align-items: center;
+            min-height: 30px;
+            padding: 6px 11px;
+            border: 1px solid var(--navy);
+            border-radius: 999px;
+            color: var(--navy);
+            font: 800 9px/1 var(--mono);
+            letter-spacing: 0.08em;
+        }
+        .stamp.is-solid {
+            color: var(--paper);
+            background: var(--navy);
+        }
+        .hand-note {
+            color: var(--red);
+            font-family: "Segoe Print", "KaiTi", cursive;
+            font-size: clamp(20px, 2.2vw, 30px);
+            font-weight: 700;
+            line-height: 1.45;
+            transform: rotate(-3deg);
+        }
+        .hero-number {
+            color: var(--navy);
+            font-size: clamp(68px, 7.2vw, 106px);
+            line-height: 0.9;
+        }
+        .hero-number-label {
+            margin-top: 12px;
+            font: 800 9px/1.5 var(--mono);
+            letter-spacing: 0.14em;
+        }
+        .round-seal {
+            width: 90px;
+            aspect-ratio: 1;
+            border: 2px solid var(--red);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            align-self: flex-end;
+            color: var(--red);
+            font: 800 11px/1.25 var(--mono);
+            text-align: center;
+            transform: rotate(7deg);
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-block: 1px solid var(--rule);
+        }
+        .metric {
+            min-height: 190px;
+            padding: 30px 28px;
+            border-right: 1px solid var(--rule);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .metric:last-child { border-right: 0; }
+        .metric-no {
+            color: var(--red);
+            font: 800 9px/1 var(--mono);
+            letter-spacing: 0.12em;
+        }
+        .metric strong {
+            color: var(--navy);
+            font: 900 clamp(34px, 4vw, 60px)/1 var(--serif);
+            letter-spacing: -0.04em;
+        }
+        .metric span:last-child {
+            font: 700 11px/1.45 var(--mono);
+            letter-spacing: 0.06em;
+        }
+
+        .case-section {
+            padding: clamp(70px, 8vw, 118px) clamp(28px, 6vw, 86px);
+            border-bottom: 1px solid var(--rule);
+            scroll-margin-top: 108px;
+        }
+        .section-kicker {
+            grid-column: 1 / span 2;
+            color: var(--red);
+            font: 800 10px/1.5 var(--mono);
+            letter-spacing: 0.14em;
+        }
+        .section-main { grid-column: 4 / -1; }
+        .section-title {
+            max-width: 900px;
+            margin: 0 0 44px;
+            font-size: clamp(38px, 4.3vw, 66px);
+            line-height: 1.04;
+        }
+        .section-intro {
+            max-width: 780px;
+            margin: -20px 0 46px;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .responsibility-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            border-top: 1px solid var(--ink);
+        }
+        .responsibility {
+            min-height: 350px;
+            padding: 28px 26px;
+            border-right: 1px solid var(--rule);
+        }
+        .responsibility:last-child { border-right: 0; }
+        .responsibility .number {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 74px;
+            border-radius: 50%;
+            color: var(--paper);
+            background: var(--navy);
+            font: 800 13px/1 var(--mono);
+        }
+        .responsibility:nth-child(2) .number { background: var(--red); }
+        .responsibility:nth-child(3) .number {
+            color: var(--ink);
+            background: var(--highlight);
+        }
+        .responsibility h3 {
+            margin: 0 0 20px;
+            font-size: 25px;
+            line-height: 1.25;
+        }
+        .responsibility p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .process-list {
+            border-top: 1px solid var(--ink);
+            counter-reset: process;
+        }
+        .process-item {
+            counter-increment: process;
+            display: grid;
+            grid-template-columns: 80px 1.1fr 1.8fr;
+            gap: 22px;
+            padding: 25px 0;
+            border-bottom: 1px solid var(--rule);
+            align-items: start;
+        }
+        .process-item::before {
+            content: "0" counter(process);
+            color: var(--red);
+            font: 800 11px/1.5 var(--mono);
+        }
+        .process-item h3 {
+            margin: 0;
+            color: var(--navy);
+            font-size: 21px;
+        }
+        .process-item p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.75;
+        }
+
+        .risk-list { border-top: 1px solid var(--ink); }
+        .risk-row {
+            display: grid;
+            grid-template-columns: 74px 1.35fr 1.15fr 1fr;
+            gap: 20px;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--rule);
+        }
+        .risk-code {
+            color: var(--red);
+            font: 800 11px/1.4 var(--mono);
+        }
+        .risk-row h3,
+        .risk-row p { margin: 0; }
+        .risk-row h3 { font-size: 17px; line-height: 1.5; }
+        .risk-row p { font-size: 13px; line-height: 1.7; }
+        .risk-result {
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .evidence-block {
+            margin-top: 60px;
+            border: 1px solid var(--ink);
+            background: #fffdf8;
+            box-shadow: 8px 8px 0 var(--navy);
+        }
+        .evidence-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--rule);
+            font: 800 9px/1.4 var(--mono);
+            letter-spacing: 0.1em;
+        }
+        .evidence-canvas {
+            overflow: auto;
+            overscroll-behavior: contain;
+        }
+        .evidence-trigger {
+            position: relative;
+            display: block;
+            width: 100%;
+            min-width: 780px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            cursor: zoom-in;
+            color: inherit;
+        }
+        .evidence-trigger img {
+            width: 100%;
+            height: auto;
+        }
+        .zoom-hint {
+            position: absolute;
+            right: 18px;
+            bottom: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border: 1px solid var(--ink);
+            background: var(--paper);
+            color: var(--navy);
+            font: 800 9px/1 var(--mono);
+            letter-spacing: 0.08em;
+            box-shadow: 4px 4px 0 var(--ink);
+        }
+        .evidence-caption {
+            padding: 15px 16px;
+            border-top: 1px solid var(--rule);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .standard-feature {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: clamp(34px, 6vw, 82px);
+            align-items: start;
+        }
+        .standard-number {
+            padding: 30px 0;
+            border-block: 1px solid var(--ink);
+        }
+        .standard-number strong {
+            display: block;
+            color: var(--navy);
+            font: 900 clamp(70px, 9vw, 128px)/0.85 var(--serif);
+            letter-spacing: -0.06em;
+        }
+        .standard-number span {
+            display: block;
+            margin-top: 18px;
+            font: 800 10px/1.5 var(--mono);
+            letter-spacing: 0.12em;
+        }
+        .standard-copy p {
+            margin: 0 0 24px;
+            font-size: 17px;
+            line-height: 1.85;
+        }
+        .highlight-line {
+            background: linear-gradient(transparent 58%, var(--highlight) 58%);
+        }
+
+        .outcome-band {
+            color: var(--paper);
+            background: var(--navy);
+        }
+        .outcome-band .section-kicker { color: var(--highlight); }
+        .outcome-band .section-title { color: var(--paper); }
+        .outcome-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-top: 1px solid rgba(244, 241, 235, 0.35);
+        }
+        .outcome {
+            min-height: 230px;
+            padding: 28px 24px;
+            border-right: 1px solid rgba(244, 241, 235, 0.24);
+        }
+        .outcome:last-child { border-right: 0; }
+        .outcome iconify-icon {
+            color: var(--highlight);
+            font-size: 28px;
+        }
+        .outcome h3 { margin: 58px 0 12px; font-size: 24px; }
+        .outcome p { margin: 0; color: rgba(244,241,235,.78); font-size: 14px; line-height: 1.7; }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-block: 1px solid var(--ink);
+        }
+        .method {
+            min-height: 300px;
+            padding: 25px 22px;
+            border-right: 1px solid var(--rule);
+        }
+        .method:last-child { border-right: 0; }
+        .method b {
+            display: block;
+            color: var(--red);
+            font: 800 11px/1 var(--mono);
+        }
+        .method h3 {
+            margin: 72px 0 18px;
+            font-size: 26px;
+        }
+        .method p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.75;
+        }
+        .case-footer {
+            min-height: 160px;
+            padding: 38px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 30px;
+        }
+        .footer-note {
+            color: rgba(26,26,26,.55);
+            font: 700 9px/1.6 var(--mono);
+            letter-spacing: .12em;
+        }
+
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .65s ease, transform .65s ease;
+        }
+        [data-reveal].is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            grid-template-rows: auto 1fr;
+            background: rgba(17, 24, 32, 0.96);
+            color: var(--paper);
+        }
+        .lightbox.is-open { display: grid; }
+        .lightbox-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            min-height: 60px;
+            padding: 10px 18px;
+            border-bottom: 1px solid rgba(244,241,235,.25);
+        }
+        .lightbox-title {
+            font: 700 10px/1.4 var(--mono);
+            letter-spacing: .1em;
+        }
+        .lightbox-close {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(244,241,235,.5);
+            color: var(--paper);
+            background: transparent;
+            cursor: pointer;
+        }
+        .lightbox-close iconify-icon { font-size: 22px; }
+        .lightbox-stage {
+            overflow: auto;
+            padding: 26px;
+            display: grid;
+            place-items: start center;
+        }
+        .lightbox-stage img {
+            width: auto;
+            max-width: none;
+            height: auto;
+            background: white;
+        }
+        :focus-visible {
+            outline: 3px solid var(--red);
+            outline-offset: 4px;
+        }
+
+        @media (max-width: 900px) {
+            .hero-copy { grid-column: span 7; }
+            .hero-side { grid-column: span 5; }
+            .section-kicker { grid-column: 1 / span 3; }
+            .section-main { grid-column: 4 / -1; }
+            .risk-row { grid-template-columns: 64px 1fr 1fr; }
+            .risk-result { grid-column: 2 / -1; }
+            .method-grid { grid-template-columns: repeat(2, 1fr); }
+            .method:nth-child(2) { border-right: 0; }
+            .method:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+        }
+
+        @media (max-width: 767px) {
+            html { scroll-behavior: auto; }
+            .case-shell { border-inline: 0; }
+            .case-topbar { padding: 0 16px; }
+            .case-index { font-size: 8px; }
+            .section-nav { padding-inline: 16px; }
+            .hero-copy,
+            .hero-side,
+            .section-kicker,
+            .section-main {
+                grid-column: 1 / -1;
+            }
+            .hero-copy {
+                min-height: auto;
+                padding: 58px 22px 42px;
+                border-right: 0;
+                border-bottom: 1px solid var(--rule);
+            }
+            .hero-side {
+                min-height: 300px;
+                padding: 32px 22px;
+            }
+            .hero-title { font-size: clamp(45px, 13vw, 64px); }
+            .hero-role { padding-top: 40px; }
+            .round-seal { width: 76px; }
+            .metrics { grid-template-columns: repeat(2, 1fr); }
+            .metric {
+                min-height: 150px;
+                padding: 22px 18px;
+            }
+            .metric:nth-child(2) { border-right: 0; }
+            .metric:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+            .case-section { padding: 68px 22px; }
+            .section-kicker { margin-bottom: 28px; }
+            .section-main { min-width: 0; }
+            .section-title { margin-bottom: 36px; }
+            .responsibility-grid,
+            .standard-feature,
+            .outcome-grid {
+                grid-template-columns: 1fr;
+            }
+            .responsibility,
+            .outcome {
+                min-height: auto;
+                border-right: 0;
+                border-bottom: 1px solid var(--rule);
+            }
+            .responsibility:last-child,
+            .outcome:last-child { border-bottom: 0; }
+            .responsibility .number { margin-bottom: 42px; }
+            .process-item {
+                grid-template-columns: 54px 1fr;
+                gap: 14px;
+            }
+            .process-item p { grid-column: 2; }
+            .risk-row {
+                grid-template-columns: 50px 1fr;
+                gap: 12px;
+            }
+            .risk-row p,
+            .risk-result { grid-column: 2; }
+            .evidence-block { margin-top: 44px; box-shadow: 5px 5px 0 var(--navy); }
+            .evidence-head { align-items: flex-start; }
+            .standard-feature { gap: 38px; }
+            .outcome h3 { margin-top: 36px; }
+            .method-grid { grid-template-columns: 1fr; }
+            .method {
+                min-height: auto;
+                border-right: 0;
+                border-bottom: 1px solid var(--rule);
+            }
+            .method:last-child { border-bottom: 0; }
+            .method h3 { margin-top: 44px; }
+            .case-footer { align-items: flex-start; flex-direction: column; }
+            .lightbox-stage { padding: 14px; place-items: start; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            [data-reveal] { opacity: 1; transform: none; }
+        }
     </style>
 </head>
-<body class="bg-base text-ink font-mono antialiased overflow-x-hidden">
-
-    <!-- 顶部标识 -->
-    <main class="max-w-[1440px] mx-auto border-x border-grid relative flex flex-col min-h-screen">
-
-        <header class="flex justify-between items-center py-3 px-6 border-b border-grid text-xs uppercase tracking-widest font-semibold text-ink/70">
-            <a href="../index.html#timeline" class="flex items-center gap-4 hover:text-accent transition-colors">
-                <div class="w-3 h-3 bg-secondary"></div>
-                <span>周芷琦 · 个人作品集</span>
+<body data-case-study="project-04" class="bg-base text-ink antialiased overflow-x-hidden">
+    <main class="case-shell">
+        <header class="case-topbar">
+            <a href="../index.html#timeline" class="back-link">
+                <iconify-icon icon="solar:arrow-left-linear" aria-hidden="true"></iconify-icon>
+                <span>返回作品集</span>
             </a>
-            <div class="hidden md:flex items-center gap-2 text-secondary">
-                <iconify-icon icon="solar:target-linear" class="text-base"></iconify-icon>
-            </div>
-            <div class="hidden md:flex items-center gap-4">
-                <span>项目 / 04</span>
-            </div>
+            <span class="case-index meta">项目 / 04</span>
         </header>
 
-        <!-- Hero -->
-        <section class="relative border-b border-grid flex flex-col p-8 md:p-16 overflow-hidden">
-            <div class="text-accent font-semibold tracking-widest mb-6 border-b-2 border-secondary inline-block pb-1 self-start">
-                项目 04 · 跨境协作
+        <nav class="section-nav" aria-label="案例页目录">
+            <a href="#overview">概览</a>
+            <a href="#responsibilities">职责</a>
+            <a href="#process">流程</a>
+            <a href="#risk">风险</a>
+            <a href="#standards">标准</a>
+            <a href="#outcomes">结果</a>
+            <a href="#retrospective">复盘</a>
+        </nav>
+
+        <section id="overview" class="editorial-grid">
+            <div class="hero-copy">
+                <p class="eyebrow">项目 04 · 跨境语言服务 / 2023</p>
+                <h1 class="hero-title display">把 <mark>53,000+</mark> 字交付，<br>变成一套可控流程。</h1>
+                <p class="hero-lede">
+                    在武汉传神语联网网络科技股份有限公司负责 2 个项目，均为网文中译英，
+                    协调 8 人翻译团队，从需求接收、任务拆解、术语标准到质量验收，
+                    最终实现 100% 按期交付。
+                </p>
+                <div class="hero-role" aria-label="项目标签">
+                    <span class="stamp is-solid">PROJECT MANAGER</span>
+                    <span class="stamp">任务拆解</span>
+                    <span class="stamp">质量协同</span>
+                    <span class="stamp">风险管理</span>
+                    <span class="stamp">[04]</span>
+                </div>
             </div>
-            <h1 class="font-sans font-bold text-5xl md:text-7xl leading-[0.9] tracking-tight uppercase mb-8 text-[#0b3b8c]">
-                跨境项目管理
-            </h1>
-            <p class="text-sm md:text-base max-w-2xl leading-relaxed font-semibold mb-12">
-                在跨境语言服务项目中协调8人团队，将5万余字交付拆解为任务、节点和标准，开始理解协作与推进的力量。
-            </p>
+            <aside class="hero-side" aria-label="项目核心结论">
+                <p class="hand-note">“标准前置，<br>比事后救火更重要。”</p>
+                <div>
+                    <div class="hero-number display">1,240</div>
+                    <div class="hero-number-label meta">TERMINOLOGY<br>INCONSISTENCIES CORRECTED</div>
+                </div>
+                <div class="round-seal">PM<br>ROLE</div>
+            </aside>
+        </section>
 
-            <!-- 关键数据 -->
-            <div class="flex flex-wrap gap-4 text-xs font-semibold tracking-widest">
-                                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">8 人协作</span>
-                    <span class="text-secondary">[04]</span>
-                </div>
-                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">5 万字交付</span>
-                    <span class="text-secondary">[04]</span>
-                </div>
-                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">ON TIME</span>
-                    <span class="text-secondary">[04]</span>
-                </div>
-                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">质量管理</span>
-                    <span class="text-secondary">[04]</span>
-                </div>
+        <section class="metrics" aria-label="项目关键数据">
+            <article class="metric" data-reveal>
+                <span class="metric-no">[04] / 01</span>
+                <strong>2</strong>
+                <span>个项目</span>
+            </article>
+            <article class="metric" data-reveal>
+                <span class="metric-no">[04] / 02</span>
+                <strong>53,000+</strong>
+                <span>总交付字数</span>
+            </article>
+            <article class="metric" data-reveal>
+                <span class="metric-no">[04] / 03</span>
+                <strong>8 人</strong>
+                <span>翻译团队规模</span>
+            </article>
+            <article class="metric" data-reveal>
+                <span class="metric-no">[04] / 04</span>
+                <strong>100%</strong>
+                <span>按期交付</span>
+            </article>
+        </section>
 
+        <section id="responsibilities" class="case-section editorial-grid">
+            <div class="section-kicker meta">01 / RESPONSIBILITY</div>
+            <div class="section-main">
+                <h2 class="section-title display" data-reveal>我负责的不是“跟进”，而是让协作有标准、有节奏、有结果。</h2>
+                <div class="responsibility-grid">
+                    <article class="responsibility" data-reveal>
+                        <span class="number">01</span>
+                        <h3 class="display">项目排期与任务拆解</h3>
+                        <p>将 53,000+ 字交付拆分为里程碑与人员分工；按章节和模块分配至 8 名译员，单次任务控制在 6,000 字以内，并设置 13 个里程碑节点。</p>
+                    </article>
+                    <article class="responsibility" data-reveal>
+                        <span class="number">02</span>
+                        <h3 class="display">标准化与质量协同</h3>
+                        <p>主导搭建项目术语表，统一“霸道总裁、白月光、绿茶”等高频表达；组织初译、校对、反馈、修订的三阶段协作。</p>
+                    </article>
+                    <article class="responsibility" data-reveal>
+                        <span class="number">03</span>
+                        <h3 class="display">数据化进度管理</h3>
+                        <p>用 Excel 搭建项目看板，每日检查进度；用黄、红色标记延期风险，并从语义、语体、本地化三个维度完成质量审核。</p>
+                    </article>
+                </div>
             </div>
         </section>
 
-        <!-- PPT 展示区 -->
-        <section class="relative border-b border-grid flex flex-col p-8 md:p-16 bg-grid/10">
-            <header class="flex justify-between items-center mb-12 text-xs font-semibold uppercase tracking-widest border-b border-grid pb-4">
-                <span class="text-accent">// PROJECT DECK</span>
-                <span class="text-secondary">04 / 06</span>
-            </header>
-
-            <!-- PPT 容器 - 等你给内容 -->
-            <div class="ppt-frame ppt-shadow aspect-video w-full flex flex-col items-center justify-center p-12 text-center">
-                <iconify-icon icon="solar:gallery-wide-linear" class="text-6xl text-ink/30 mb-4"></iconify-icon>
-                <p class="text-sm font-semibold tracking-widest uppercase text-ink/50">
-                    PPT 展示区
-                </p>
-                <p class="text-xs text-ink/40 mt-2 max-w-md">
-                    把项目 PPT 的内容（截图、PDF 转图片、或者直接放文字段落）放在这里即可。
-                </p>
-            </div>
-
-            <!-- 占位 PPT 卡片 - 之后替换 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 02</span>
-                    <p class="text-xs text-ink/60 mt-2">背景与目标</p>
-                </div>
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 03</span>
-                    <p class="text-xs text-ink/60 mt-2">过程与方法</p>
-                </div>
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 04</span>
-                    <p class="text-xs text-ink/60 mt-2">结果与数据</p>
-                </div>
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 05</span>
-                    <p class="text-xs text-ink/60 mt-2">复盘与思考</p>
+        <section id="process" class="case-section editorial-grid">
+            <div class="section-kicker meta">02 / PROCESS</div>
+            <div class="section-main">
+                <h2 class="section-title display" data-reveal>把两项并行项目，拆成每个人都知道下一步做什么的 13 个节点。</h2>
+                <p class="section-intro">流程围绕“先统一标准、再推进生产、持续校验风险”展开，项目 A 与项目 B 通过错峰排期共享关键校对资源。</p>
+                <div class="process-list">
+                    <article class="process-item" data-reveal>
+                        <h3 class="display">需求接收</h3>
+                        <p>确认交付范围、质量标准、源文件与商务文件格式，分别完成项目 A、B 的启动检查。</p>
+                    </article>
+                    <article class="process-item" data-reveal>
+                        <h3 class="display">标准化</h3>
+                        <p>项目 A 在初译前发布术语表 v1.0；项目 B 建立法律与商务术语表，先解决多人协作中的统一口径。</p>
+                    </article>
+                    <article class="process-item" data-reveal>
+                        <h3 class="display">初译</h3>
+                        <p>按章节与人员能力分配任务；三个批次均比计划日期提前 1 天完成，为后续校对留出缓冲。</p>
+                    </article>
+                    <article class="process-item" data-reveal>
+                        <h3 class="display">校对</h3>
+                        <p>集中识别术语不一致、语境错误与文化适配问题，并通过错峰排期避免同一校对人员超负荷。</p>
+                    </article>
+                    <article class="process-item" data-reveal>
+                        <h3 class="display">修订</h3>
+                        <p>PM 与校对人员共同完成术语修订、第二轮校对与终校，持续收敛高频问题。</p>
+                    </article>
+                    <article class="process-item" data-reveal>
+                        <h3 class="display">交付</h3>
+                        <p>两项项目均按计划完成最终交付并通过客户验收，形成可追踪的节点与质量记录。</p>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- 底部 -->
-        <footer class="border-t border-grid py-4 px-6 flex justify-between items-center text-[10px] font-semibold uppercase tracking-widest text-ink bg-base z-30">
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 bg-secondary"></div>
-                <span>PEOPLE. STORIES. IDEAS. GROWTH.</span>
+        <section id="risk" class="case-section editorial-grid">
+            <div class="section-kicker meta">03 / RISK CONTROL</div>
+            <div class="section-main">
+                <h2 class="section-title display" data-reveal>风险不是事后记录，而是提前改变排期和标准的依据。</h2>
+                <p class="section-intro">以下五类风险均来自项目看板。页面保留原始完整截图，便于面试官进一步核验过程。</p>
+
+                <div class="risk-list">
+                    <article class="risk-row" data-reveal>
+                        <div class="risk-code">R-01 / 高</div>
+                        <h3 class="display">8 人对网文高频表达存在译法分歧</h3>
+                        <p>初译前统一发布术语表 v1.0。</p>
+                        <p class="risk-result">术语不一致从预计 3,000+ 降至 1,240 处。</p>
+                    </article>
+                    <article class="risk-row" data-reveal>
+                        <div class="risk-code">R-02 / 中</div>
+                        <h3 class="display">同一校对人员同时负责 A、B 项目</h3>
+                        <p>调整 B 项目排期，错开校对高峰。</p>
+                        <p class="risk-result">两个项目的校对资源无冲突。</p>
+                    </article>
+                    <article class="risk-row" data-reveal>
+                        <div class="risk-code">R-03 / 中</div>
+                        <h3 class="display">网文表达存在文化适配难点</h3>
+                        <p>补充文化适配说明，并增加一轮本地化校对。</p>
+                        <p class="risk-result">客户反馈文化表达自然。</p>
+                    </article>
+                    <article class="risk-row" data-reveal>
+                        <div class="risk-code">R-04 / 中</div>
+                        <h3 class="display">商务与法律章节超出译员背景</h3>
+                        <p>PM 补充法律术语参考，校对阶段重点检查。</p>
+                        <p class="risk-result">发现并修正 85 处术语问题。</p>
+                    </article>
+                    <article class="risk-row" data-reveal>
+                        <div class="risk-code">R-05 / 低</div>
+                        <h3 class="display">交付前客户临时调整角色称谓</h3>
+                        <p>在术语表中新增称谓对照并批量替换。</p>
+                        <p class="risk-result">1 天内完成调整。</p>
+                    </article>
+                </div>
+
+                <figure class="evidence-block" data-reveal>
+                    <div class="evidence-head">
+                        <span>PROJECT EVIDENCE / 01</span>
+                        <span>完整展示 · 可点击放大</span>
+                    </div>
+                    <div class="evidence-canvas">
+                        <button class="evidence-trigger" type="button"
+                            data-full="../assets/img/project-04-milestones-risk.png"
+                            data-title="项目里程碑与风险追踪"
+                            aria-label="放大查看项目里程碑与风险追踪完整截图">
+                            <img src="../assets/img/project-04-milestones-risk.png" alt="项目里程碑与风险追踪完整表格">
+                            <span class="zoom-hint">
+                                <iconify-icon icon="solar:maximize-square-3-linear" aria-hidden="true"></iconify-icon>
+                                点击放大完整证据
+                            </span>
+                        </button>
+                    </div>
+                    <figcaption class="evidence-caption">原始 Excel 看板同时记录计划日期、实际日期、负责人、状态、风险等级、应对措施与复盘结论。</figcaption>
+                </figure>
             </div>
-            <a href="../index.html#timeline" class="text-accent hover:text-ink transition-colors">
-                ← 返回主页
+        </section>
+
+        <section id="standards" class="case-section editorial-grid">
+            <div class="section-kicker meta">04 / STANDARD FIRST</div>
+            <div class="section-main">
+                <h2 class="section-title display" data-reveal>先把“什么算对”说清楚，再让八个人同时开始。</h2>
+
+                <div class="standard-feature">
+                    <div class="standard-number" data-reveal>
+                        <strong>1,240</strong>
+                        <span>处术语不一致完成纠正</span>
+                    </div>
+                    <div class="standard-copy" data-reveal>
+                        <p>项目 A 在初译前建立术语表 v1.0，提取 <span class="highlight-line">82 条高频术语</span>；项目 B 进一步整理 <span class="highlight-line">35 条法律与商务术语</span>。</p>
+                        <p>术语表不仅给出统一译法，还记录人物称谓、使用场景、语境和译法说明，让文化适配与语气选择能够被讨论、复查和复用。</p>
+                        <p class="hand-note">一致性不是最后检查出来的，<br>而是最开始设计出来的。</p>
+                    </div>
+                </div>
+
+                <figure class="evidence-block" data-reveal>
+                    <div class="evidence-head">
+                        <span>PROJECT EVIDENCE / 02</span>
+                        <span>完整展示 · 可点击放大</span>
+                    </div>
+                    <div class="evidence-canvas">
+                        <button class="evidence-trigger" type="button"
+                            data-full="../assets/img/project-04-terminology.png"
+                            data-title="项目统一术语表 v4.0"
+                            aria-label="放大查看项目统一术语表完整截图">
+                            <img src="../assets/img/project-04-terminology.png" alt="网文中译英项目统一术语表完整表格">
+                            <span class="zoom-hint">
+                                <iconify-icon icon="solar:maximize-square-3-linear" aria-hidden="true"></iconify-icon>
+                                点击放大完整证据
+                            </span>
+                        </button>
+                    </div>
+                    <figcaption class="evidence-caption">术语表按人物称谓、网络用语、场景、剧情术语与动作描写分类，同时保留文化适配说明和核心设定备注。</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section id="outcomes" class="case-section editorial-grid outcome-band">
+            <div class="section-kicker meta">05 / QUALITY</div>
+            <div class="section-main">
+                <h2 class="section-title display" data-reveal>质量不只看“翻对没有”，还要看语气是否统一、文化是否自然。</h2>
+                <div class="outcome-grid">
+                    <article class="outcome" data-reveal>
+                        <iconify-icon icon="solar:document-text-linear" aria-hidden="true"></iconify-icon>
+                        <h3 class="display">语义准确</h3>
+                        <p>通过初译、校对、修订与终校检查信息是否准确传递。</p>
+                    </article>
+                    <article class="outcome" data-reveal>
+                        <iconify-icon icon="solar:chat-round-line-linear" aria-hidden="true"></iconify-icon>
+                        <h3 class="display">语体统一</h3>
+                        <p>用术语表和称谓对照统一人物关系、身份与叙事语气。</p>
+                    </article>
+                    <article class="outcome" data-reveal>
+                        <iconify-icon icon="solar:global-linear" aria-hidden="true"></iconify-icon>
+                        <h3 class="display">本地化自然</h3>
+                        <p>增加文化适配说明和本地化校对，避免中文网络表达被机械直译。</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="retrospective" class="case-section editorial-grid">
+            <div class="section-kicker meta">06 / RETROSPECTIVE</div>
+            <div class="section-main">
+                <h2 class="section-title display" data-reveal>这次项目留下的，不只是一份交付，而是一套可迁移的方法。</h2>
+                <div class="method-grid">
+                    <article class="method" data-reveal>
+                        <b>01</b>
+                        <h3 class="display">标准前置</h3>
+                        <p>与其事后纠正 1,240 处不一致，不如在多人协作第一道质量防线就建立共同口径。</p>
+                    </article>
+                    <article class="method" data-reveal>
+                        <b>02</b>
+                        <h3 class="display">看板驱动</h3>
+                        <p>让延期风险在节点变化时显现，而不是等到最终截止日才被发现。</p>
+                    </article>
+                    <article class="method" data-reveal>
+                        <b>03</b>
+                        <h3 class="display">三维审核</h3>
+                        <p>从语义准确、语体统一、本地化适配三个维度系统化复核质量。</p>
+                    </article>
+                    <article class="method" data-reveal>
+                        <b>04</b>
+                        <h3 class="display">风险早判</h3>
+                        <p>看板每日更新，PM 每日检查；提前识别延期、资源与能力风险并调整成本最低。</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <footer class="case-footer">
+            <a href="../index.html#timeline" class="back-link">
+                <iconify-icon icon="solar:arrow-left-linear" aria-hidden="true"></iconify-icon>
+                <span>返回作品集 / VIEW ALL PROJECTS</span>
             </a>
-            <div class="flex items-center gap-4">
-                <span>© 2026 周芷琦</span>
-                <div class="w-2 h-2 bg-secondary"></div>
-            </div>
+            <div class="footer-note">04 / 06<br>© 2026 周芷琦</div>
         </footer>
-
     </main>
+
+    <div id="evidence-lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lightbox-title">
+        <div class="lightbox-bar">
+            <span id="lightbox-title" class="lightbox-title">项目证据</span>
+            <button type="button" class="lightbox-close" aria-label="关闭完整截图">
+                <iconify-icon icon="solar:close-square-linear" aria-hidden="true"></iconify-icon>
+            </button>
+        </div>
+        <div class="lightbox-stage">
+            <img src="" alt="">
+        </div>
+    </div>
 
     <script src="../assets/js/vendor.js"></script>
     <script src="../assets/js/iconify.js"></script>
     <script src="../assets/js/tailwind-config.js"></script>
+    <script>
+        (() => {
+            const lightbox = document.getElementById('evidence-lightbox');
+            const lightboxImage = lightbox.querySelector('.lightbox-stage img');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            const closeButton = lightbox.querySelector('.lightbox-close');
+            let activeTrigger = null;
+
+            const openLightbox = (trigger) => {
+                activeTrigger = trigger;
+                const preview = trigger.querySelector('img');
+                lightboxImage.src = trigger.dataset.full;
+                lightboxImage.alt = preview.alt;
+                lightboxTitle.textContent = trigger.dataset.title;
+                lightbox.classList.add('is-open');
+                lightbox.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('lightbox-open');
+                closeButton.focus();
+            };
+
+            const closeLightbox = () => {
+                if (!lightbox.classList.contains('is-open')) return;
+                lightbox.classList.remove('is-open');
+                lightbox.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('lightbox-open');
+                lightboxImage.src = '';
+                if (activeTrigger) activeTrigger.focus();
+            };
+
+            document.querySelectorAll('.evidence-trigger').forEach((trigger) => {
+                trigger.addEventListener('click', () => openLightbox(trigger));
+            });
+            closeButton.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (event) => {
+                if (event.target === lightbox || event.target.classList.contains('lightbox-stage')) {
+                    closeLightbox();
+                }
+            });
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') closeLightbox();
+            });
+
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!reduceMotion && 'IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12 });
+                document.querySelectorAll('[data-reveal]').forEach((node) => observer.observe(node));
+            } else {
+                document.querySelectorAll('[data-reveal]').forEach((node) => node.classList.add('is-visible'));
+            }
+        })();
+    </script>
 </body>
 </html>

@@ -15,13 +15,7 @@ EXPECTED_TITLES = [
     "汉字3D数字化创作",
 ]
 # origin/main project-01..05 after normalizing only the allowed numbering fields.
-LEGACY_PAGE_FINGERPRINTS = {
-    "02": "9546ca62c1ea15aa242f086ecf831fc2f8fef8506cea3a079e7ecb0dab7821ad",
-    "03": "fdfc0c00cfed29309a0affbbe1c32a3a19b24bc53742c5d0d4a1fea3de5ec9b2",
-    "04": "d6c923032dccde99c7ead55cb063a7df9316b9a5f660b40db8d746b49ae207de",
-    "05": "3d67e812f4950c12630a453d014f2d9cd78cd55e13c0e7363c73713b2d28dca2",
-    "06": "61835c7dbb0df71bb9d974f923f380fdc5d821fd464ef8029d3351f86460a9c5",
-}
+LEGACY_PAGE_FINGERPRINTS = {}
 VOID_ELEMENTS = {
     "area", "base", "br", "col", "embed", "hr", "img", "input",
     "link", "meta", "param", "source", "track", "wbr",
@@ -167,6 +161,42 @@ def validate_homepage(html):
     ]
     assert len(watermarks) == 1 and text_content(watermarks[0]) == "06+ STORIES", "six-project story count"
 
+    homepage_copy = text_content(root)
+    for required in [
+        "敏锐观察", "解决问题", "持续成长", "来看看我能为你做什么", "ABOUT ME", "Agent Name：周芷琦",
+        "峰时(工作日在岗时间)：语音识别，Key:呼叫名字",
+        "谷时(其余时间):Phone call，Key:见底部联系方式",
+        "调用方式", "支持API、飞书、微信等多平台调用",
+        "数据分析（Excel/VLOOKUP/SQL）", "视觉产出（Photoshop /Figma/剪映）",
+        "AI工具（Claude/codex/workbuddy）等", "MY STORY", "成长轨迹",
+        "用户运营 · 策略与增长", "产品网页· Vibe Coding毕业项目",
+        "数字人文 · 跨文化表达", "活动运营 · IP 商业化落地",
+        "定位用户痛点，带领团队完成全周期部署上线。",
+        "香港岭南大学研究生，专注数字媒介与语料库分析。",
+        "结合人文洞察，探索语言在数字化产品中的灵感碰撞。",
+        "项目管理与执行", "推动召回率提升", "7.8%", "订单量提升", "5.4%",
+        "18天", "GMV", "42万元", "点击下列项目查看详情",
+        "感谢你看到这里。", "weixin", "MoffyAI", "运营 · 创意 · AI实践",
+        "调用此人输出伴手礼诗歌一篇", "领取好运~（不白来嗷）",
+    ]:
+        assert required in homepage_copy, f"homepage refreshed copy: {required}"
+
+    for removed in [
+        "MY JOURNEY", "Curious by nature.", "RESEARCH • CREATE • GROW",
+        "观察 · 理解 · 创造", "很感谢你看到这里。", "SEND ME AN EMAIL",
+        "调味品 (适量蘸取)",
+    ]:
+        assert removed not in homepage_copy, f"homepage removed copy: {removed}"
+
+    assert "从语言与跨文化研究出发，我逐渐走向用户洞察" not in homepage_copy, "removed story intro"
+    qr_images = [
+        element for element in find_elements(root, "img")
+        if element.attrs.get("src") == "assets/img/homepage-wechat-qr.png"
+    ]
+    assert len(qr_images) == 1 and qr_images[0].attrs.get("alt"), "homepage WeChat QR"
+    invites = [element for element in descendants(root) if has_classes(element, "hero-invite")]
+    assert len(invites) == 2 and all(has_classes(element, "border-b-2") for element in invites), "hero invitation underlines"
+
 
 def normalize_legacy_page(html):
     normalized = html.lstrip("\ufeff").replace("\r\n", "\n").replace("\r", "\n")
@@ -192,6 +222,112 @@ def validate_project_page(html, number, title, expected_fingerprint=None):
         assert normalized_sha256(html) == expected_fingerprint, f"legacy content project-{number}.html"
 
 
+def validate_project_04_case_study(html):
+    required_text = [
+        "53,000+", "8 人", "2 个项目", "100% 按期交付", "13 个里程碑",
+        "1,240", "标准前置", "看板驱动", "三维审核", "风险早判",
+    ]
+    for text in required_text:
+        assert text in html, f"project-04 evidence: {text}"
+
+    assert 'data-case-study="project-04"' in html, "project-04 case study root"
+    assert html.count('class="evidence-trigger"') == 2, "project-04 evidence triggers"
+    assert '../assets/img/project-04-milestones-risk.png' in html, "milestone image"
+    assert '../assets/img/project-04-terminology.png' in html, "terminology image"
+    assert 'id="evidence-lightbox"' in html, "project-04 lightbox"
+    assert 'aria-modal="true"' in html, "project-04 modal semantics"
+    assert "Escape" in html and "prefers-reduced-motion" in html, "project-04 accessible motion"
+
+
+def validate_project_05_case_study(html):
+    required_text = [
+        "5 类口音", "15 个样本", "10 次公开部署", "中高级 EFL 学习者",
+        "Learner Mode", "Linguist Mode", "跨语言沟通协作", "AI 辅助提效",
+        "导师的专业意见", "用户反馈", "定位不够清晰", "口音听辨体验",
+    ]
+    for text in required_text:
+        assert text in html, f"project-05 evidence: {text}"
+
+    assert 'data-case-study="project-05"' in html, "project-05 case study root"
+    assert html.count('<figure class="evidence" data-carousel') == 3, "project-05 carousel groups"
+    for number in range(1, 13):
+        assert f'../assets/img/project-05-{number:02}.png' in html, f"project-05 image {number:02}"
+    assert 'aria-live="polite"' in html, "project-05 carousel live status"
+    assert "ArrowLeft" in html and "ArrowRight" in html, "project-05 keyboard carousel"
+    assert 'id="evidence-lightbox"' in html and 'aria-modal="true"' in html, "project-05 lightbox"
+    assert "Escape" in html and "prefers-reduced-motion" in html, "project-05 accessible motion"
+    assert 'class="accent-cta"' in html, "project-05 prominent live-site CTA"
+    assert "查看线上成果" in html and "solar:arrow-up-right-linear" in html, "project-05 CTA guidance"
+    assert '--ui-copy-size: clamp(16px, 1.35vw, 20px)' in html, "project-05 shared large UI copy size"
+    assert html.count('font-size: var(--ui-copy-size)') >= 5, "project-05 enlarged navigation and CTA text"
+
+
+def validate_project_02_case_study(html):
+    required_text = [
+        "24", "2,731", "18.6万", "42.4%", "66.7%", "四层召回",
+        "Uplift", "滴滴 567", "7.8%", "+4.7pp", "+5.4%", "1.89",
+        "体验修复 + 精准分层 + 节奏实验",
+    ]
+    for text in required_text:
+        assert text in html, f"project-02 evidence: {text}"
+
+    assert 'data-case-study="project-02"' in html, "project-02 case study root"
+    assert html.count('data-slide="') == 10, "project-02 follows ten-slide source structure"
+    assert html.count('class="data-table') == 3, "project-02 source tables"
+    assert '--ui-copy-size: clamp(16px, 1.35vw, 20px)' in html, "project-02 readable UI copy"
+    assert 'href="../index.html#timeline"' in html, "project-02 return link"
+    assert "prefers-reduced-motion" in html, "project-02 accessible motion"
+
+
+def validate_project_03_case_study(html):
+    required_text = [
+        "42万元", "25.2万元", "16.8万元", "约5倍", "2023.09.28—10.15",
+        "年轻化 × 泛二次元 × 社交娱乐 × 兴趣驱动消费", "触达—到店—转化—沉淀",
+        "女性向IP兴趣用户", "活动专属券码", "不以热点代替人群匹配",
+    ]
+    for text in required_text:
+        assert text in html, f"project-03 evidence: {text}"
+
+    assert 'data-case-study="project-03"' in html, "project-03 case study root"
+    assert html.count('data-slide="') == 11, "project-03 follows eleven-slide source structure"
+    assert html.count('<figure class="evidence" data-carousel') == 2, "project-03 grouped image carousels"
+    for number in range(1, 11):
+        assert f'../assets/img/project-03-{number:02}' in html, f"project-03 image {number:02}"
+    assert 'aria-live="polite"' in html, "project-03 carousel live status"
+    assert "ArrowLeft" in html and "ArrowRight" in html, "project-03 keyboard carousel"
+    assert "hasAttribute('data-carousel')" in html, "project-03 initializes empty boolean carousel attribute"
+    assert 'id="evidence-lightbox"' in html and 'aria-modal="true"' in html, "project-03 lightbox"
+    assert "Escape" in html and "prefers-reduced-motion" in html, "project-03 accessible motion"
+    assert '--ui-copy-size: clamp(16px, 1.35vw, 20px)' in html, "project-03 readable UI copy"
+    assert 'href="../index.html#timeline"' in html, "project-03 return link"
+
+
+def validate_project_06_case_study(html):
+    required_text = [
+        "Hilde Mertens×MADES", "跨文化汉字数字化创作", "运营助理 / 创作者",
+        "2025.09—2025.12", "自学 Blender", "全英文 PPT 演讲", "优秀创作者",
+        "作品送展台湾", "庙堂的柱子彼此分立", "橡树和柏树",
+    ]
+    for text in required_text:
+        assert text in html, f"project-06 evidence: {text}"
+
+    assert 'data-case-study="project-06"' in html, "project-06 case study root"
+    assert html.count('data-slide="') == 6, "project-06 stays within six visual sections"
+    assert '<video' in html and 'project-06-animation.mp4' in html, "project-06 native animation"
+    root = parse_html(html)
+    carousels = [element for element in find_elements(root, "figure") if "data-carousel" in element.attrs]
+    assert len(carousels) == 4, "project-06 image carousels"
+    for number in range(1, 14):
+        assert f'project-06-slide-{number:02}.png' in html, f"project-06 PPT slide {number:02}"
+    for asset in ["talk-1", "talk-2", "postcard-front", "postcard-back", "social-portfolio", "social-posts", "certificate"]:
+        assert f'project-06-{asset}' in html, f"project-06 source asset: {asset}"
+    assert 'aria-live="polite"' in html and "ArrowLeft" in html and "ArrowRight" in html, "project-06 accessible carousels"
+    assert 'id="evidence-lightbox"' in html and 'aria-modal="true"' in html, "project-06 lightbox"
+    assert "Escape" in html and "prefers-reduced-motion" in html, "project-06 accessible motion"
+    assert '--ui-copy-size: clamp(16px, 1.35vw, 20px)' in html, "project-06 readable UI copy"
+    assert 'href="../index.html#timeline"' in html, "project-06 return link"
+
+
 def assert_rejects_mutation(name, expected_message, check):
     try:
         check()
@@ -205,14 +341,28 @@ def assert_rejects_mutation(name, expected_message, check):
 
 
 INDEX = (ROOT / "index.html").read_text(encoding="utf-8-sig")
+MAIN_CSS = (ROOT / "assets" / "css" / "main.css").read_text(encoding="utf-8-sig")
 PAGES = {
     number: (ROOT / "pages" / f"project-{number}.html").read_text(encoding="utf-8-sig")
     for number in EXPECTED_NUMBERS
 }
 
 validate_homepage(INDEX)
+for selector in [
+    ".portfolio-serif", ".portfolio-latin", ".hero-invite", ".agent-copy",
+    ".story-item-copy", ".story-stamp", ".grid-cols-\\[32px_1fr\\]",
+    ".left-\\[55px\\]", ".left-\\[-1px\\]", ".text-\\[9px\\]",
+    ".md\\:p-12", ".md\\:pr-24", ".xl\\:p-14", ".xl\\:text-6xl",
+]:
+    assert selector in MAIN_CSS, f"homepage static CSS selector: {selector}"
 for number, title in zip(EXPECTED_NUMBERS, EXPECTED_TITLES):
     validate_project_page(PAGES[number], number, title, LEGACY_PAGE_FINGERPRINTS.get(number))
+
+validate_project_04_case_study(PAGES["04"])
+validate_project_05_case_study(PAGES["05"])
+validate_project_02_case_study(PAGES["02"])
+validate_project_03_case_study(PAGES["03"])
+validate_project_06_case_study(PAGES["06"])
 
 for html_path in [ROOT / "index.html", *(ROOT / "pages").glob("project-*.html")]:
     html = html_path.read_text(encoding="utf-8-sig")
@@ -254,23 +404,21 @@ assert_rejects_mutation(
     lambda: validate_homepage(third_badge),
 )
 
-deleted_body = PAGES["02"].replace("在滴滴参与沉默与流失用户召回", "", 1)
-assert deleted_body != PAGES["02"], "deleted-body mutation fixture"
+deleted_body = PAGES["03"].replace("42万元", "", 1)
+assert deleted_body != PAGES["03"], "deleted-body mutation fixture"
 assert_rejects_mutation(
     "deleted legacy body",
-    "legacy content project-02.html",
-    lambda: validate_project_page(
-        deleted_body, "02", EXPECTED_TITLES[1], LEGACY_PAGE_FINGERPRINTS["02"]
-    ),
+    "project-03 evidence: 42万元",
+    lambda: validate_project_03_case_study(deleted_body),
 )
 
-wrong_label = PAGES["02"].replace("[02]", "[99]", 1)
-assert wrong_label != PAGES["02"], "wrong-label mutation fixture"
+wrong_label = PAGES["03"].replace("[03]", "[99]", 1)
+assert wrong_label != PAGES["03"], "wrong-label mutation fixture"
 assert_rejects_mutation(
     "wrong bracketed label",
-    "bracketed labels project-02.html",
+    "bracketed labels project-03.html",
     lambda: validate_project_page(
-        wrong_label, "02", EXPECTED_TITLES[1], LEGACY_PAGE_FINGERPRINTS["02"]
+        wrong_label, "03", EXPECTED_TITLES[2]
     ),
 )
 

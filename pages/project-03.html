@@ -1,126 +1,52 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>活动运营IP联动 - 周芷琦 · 个人作品集</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <style>
-        /* 二级页小调整 */
-        .ppt-frame { background: #f4f1eb; border: 2px solid #1a1a1a; }
-        .ppt-shadow { box-shadow: 8px 8px 0 rgba(26,26,26,1); }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="周芷琦活动运营案例：《未定事件簿》与废柴猫桌游概念馆IP主题线下联动。">
+<title>活动运营IP联动 - 周芷琦 · 个人作品集</title>
+<link rel="stylesheet" href="../assets/css/main.css">
+<style>
+:root{--paper:#f6f4ee;--ink:#1a1a1a;--navy:#173f61;--red:#c84b2a;--yellow:#eadf86;--mint:#dce7df;--rule:rgba(26,26,26,.16);--muted:rgba(26,26,26,.68);--mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;--serif:"Noto Serif SC","Songti SC",SimSun,serif;--ui-copy-size: clamp(16px, 1.35vw, 20px)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:#e9e6df;font-family:var(--serif);-webkit-font-smoothing:antialiased}a,button{font:inherit}.shell{width:min(100%,1440px);margin:auto;overflow:hidden;background:var(--paper);border-inline:1px solid var(--rule)}.display{font-family:var(--serif);font-weight:900;letter-spacing:-.055em}.meta{font-family:var(--mono);font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.topbar{min-height:72px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule)}.back,.index,.nav a{color:var(--navy);font-family:var(--mono);font-size:var(--ui-copy-size);font-weight:800;letter-spacing:.08em;text-decoration:none}.back{display:flex;align-items:center;gap:10px}.back:hover,.back:focus-visible,.nav a:hover,.nav a:focus-visible{color:var(--red)}.nav{min-height:54px;padding:0 28px;display:flex;align-items:center;gap:clamp(22px,2.2vw,34px);overflow-x:auto;border-bottom:1px solid var(--rule);white-space:nowrap;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr))}.hero-copy{grid-column:span 7;min-height:650px;padding:clamp(54px,7vw,102px) clamp(30px,6vw,86px) 54px;border-right:1px solid var(--rule);display:flex;flex-direction:column}.hero-media{grid-column:span 5;min-height:650px;position:relative;background:var(--navy)}.hero-media img{width:100%;height:100%;object-fit:cover;opacity:.9}.hero-media:after{content:"线下活动证据 / 2023";position:absolute;right:22px;bottom:22px;padding:9px 12px;color:var(--paper);background:var(--red);font:800 14px/1 var(--mono)}.eyebrow,.kicker{color:var(--red);font:800 14px/1.5 var(--mono);letter-spacing:.12em}.hero-title{max-width:790px;margin:30px 0;font-size:clamp(50px,5.8vw,88px);line-height:1}.hero-lede{max-width:690px;margin:0;font-size:var(--ui-copy-size);line-height:1.85}.tags{margin-top:auto;padding-top:42px;display:flex;gap:10px;flex-wrap:wrap}.stamp{padding:9px 12px;border:1px solid var(--navy);border-radius:999px;color:var(--navy);font:800 14px/1 var(--mono)}.stamp.solid{color:var(--paper);background:var(--navy)}.highlight{padding-inline:.05em;background:var(--yellow)}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--rule)}.metric{min-height:178px;padding:28px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--rule)}.metric:last-child{border-right:0}.metric strong{color:var(--navy);font-size:clamp(36px,4vw,58px);line-height:1}.metric span{color:var(--muted);font:800 14px/1.5 var(--mono);letter-spacing:.06em}
+.section{padding:clamp(72px,8vw,118px) clamp(24px,6vw,86px);border-bottom:1px solid var(--rule)}.kicker{grid-column:1/span 2}.main{grid-column:3/-1}.title{max-width:1000px;margin:0 0 30px;font-size:clamp(36px,4.4vw,66px);line-height:1.08}.intro{max-width:840px;margin:0 0 42px;color:var(--muted);font-size:var(--ui-copy-size);line-height:1.85}.note{margin-top:34px;padding:28px;border-left:5px solid var(--red);background:rgba(234,223,134,.28);font-size:clamp(21px,2vw,29px);font-weight:900;line-height:1.55}.hand{color:var(--red);font-family:"Segoe Print",KaiTi,cursive;transform:rotate(-2deg)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--rule)}.card{min-height:235px;padding:28px;border-right:1px solid var(--rule)}.card:last-child{border-right:0}.card small{color:var(--red);font:800 14px/1 var(--mono)}.card h3{margin:28px 0 12px;color:var(--navy);font-size:24px}.card p,.card li{color:var(--muted);font-size:16px;line-height:1.75}.card ul{padding-left:1.2em}.journey{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--rule)}.step{min-height:215px;padding:25px 21px;border-right:1px solid var(--rule)}.step:last-child{border-right:0}.step b{color:var(--red);font:900 15px/1 var(--mono)}.step h3{margin:28px 0 12px;color:var(--navy);font-size:24px}.step p{margin:0;color:var(--muted);font-size:16px;line-height:1.7}
+.split{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--rule)}.split>div{padding:30px}.split>div:first-child{border-right:1px solid var(--rule)}.split h3{margin:0 0 18px;color:var(--navy);font-size:27px}.split li,.split p{font-size:17px;line-height:1.75}.split ul{margin:0;padding-left:1.2em}.evidence{margin:42px 0 0}.media-frame{position:relative;min-height:490px;display:grid;place-items:center;overflow:hidden;background:#dedbd3;border:1px solid var(--rule)}.media-frame img{display:block;width:100%;height:100%;max-height:650px;object-fit:contain;cursor:zoom-in}.evidence figcaption{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:15px 0;color:var(--muted);font-size:16px}.controls{display:flex;align-items:center;gap:10px}.control,.zoom{min-height:44px;padding:10px 14px;border:1px solid var(--navy);color:var(--navy);background:transparent;font:800 15px/1 var(--mono);cursor:pointer}.control:hover,.control:focus-visible,.zoom:hover,.zoom:focus-visible{color:var(--paper);background:var(--navy)}.status{min-width:64px;text-align:center;color:var(--red);font:800 15px/1 var(--mono)}
+.community{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--rule)}.community article{min-height:220px;padding:28px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}.community article:nth-child(even){border-right:0}.community article:nth-last-child(-n+2){border-bottom:0}.community strong{color:var(--red);font:800 14px/1 var(--mono)}.community h3{margin:20px 0 10px;color:var(--navy);font-size:24px}.community p{margin:0;color:var(--muted);font-size:16px;line-height:1.75}.result{padding:clamp(72px,8vw,110px) clamp(24px,6vw,86px);color:var(--paper);background:var(--navy);border-bottom:22px solid var(--red)}.result .kicker{color:var(--yellow)}.result .title{color:var(--paper)}.result .note{color:var(--ink);background:var(--yellow)}.result-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(255,255,255,.25)}.result-grid div{padding:28px;border-right:1px solid rgba(255,255,255,.25)}.result-grid div:last-child{border-right:0}.result-grid strong{display:block;color:var(--yellow);font-size:clamp(42px,5vw,70px)}.result-grid span{font-size:16px;line-height:1.6}.final-link{display:inline-flex;align-items:center;gap:10px;margin-top:42px;color:var(--navy);font:800 var(--ui-copy-size)/1.4 var(--mono);text-decoration:none}
+.lightbox{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:24px;background:rgba(12,20,26,.92)}.lightbox.open{display:grid}.lightbox img{max-width:min(1200px,92vw);max-height:85vh;object-fit:contain}.lightbox button{position:absolute;right:24px;top:24px;min-width:48px;min-height:48px;border:1px solid var(--paper);color:var(--paper);background:transparent;font-size:25px;cursor:pointer}.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}.reveal.visible{opacity:1;transform:none}
+@media(max-width:760px){.topbar{min-height:68px;padding:0 18px}.nav{padding:0 18px}.hero-copy,.hero-media{grid-column:1/-1}.hero-copy{min-height:550px;padding:54px 22px 42px;border-right:0}.hero-media{min-height:340px}.metrics{grid-template-columns:repeat(2,1fr)}.metric:nth-child(2){border-right:0}.metric:nth-child(-n+2){border-bottom:1px solid var(--rule)}.section,.result{padding:70px 22px}.kicker,.main{grid-column:1/-1}.kicker{margin-bottom:24px}.cards,.journey,.split,.community,.result-grid{grid-template-columns:1fr}.card,.step,.split>div,.community article,.result-grid div{border-right:0!important;border-bottom:1px solid var(--rule)!important}.card:last-child,.step:last-child,.split>div:last-child,.community article:last-child,.result-grid div:last-child{border-bottom:0!important}.media-frame{min-height:360px}.evidence figcaption{align-items:flex-start;flex-direction:column}.controls{width:100%;display:grid;grid-template-columns:1fr auto 1fr}.control{width:100%}.zoom{width:100%}.title{font-size:clamp(34px,11vw,48px)}.hero-title{font-size:clamp(48px,14vw,66px)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}
+</style>
 </head>
-<body class="bg-base text-ink font-mono antialiased overflow-x-hidden">
+<body><main class="shell" data-case-study="project-03">
+<header><div class="topbar"><a class="back" href="../index.html#timeline"><iconify-icon icon="solar:arrow-left-linear"></iconify-icon>返回作品集</a><span class="index">项目 / 03</span></div><nav class="nav" aria-label="案例章节"><a href="#overview">概览</a><a href="#insight">洞察</a><a href="#users">用户</a><a href="#strategy">策略</a><a href="#content">触达</a><a href="#conversion">转化</a><a href="#community">社群</a><a href="#review">复盘</a></nav></header>
 
-    <!-- 顶部标识 -->
-    <main class="max-w-[1440px] mx-auto border-x border-grid relative flex flex-col min-h-screen">
+<section class="grid" id="overview" data-slide="01"><div class="hero-copy"><div class="eyebrow">项目 03 · 用户运营实习 / 2023</div><h1 class="hero-title display">把IP兴趣，变成一条<span class="highlight">到店与消费</span>路径。</h1><p class="hero-lede">《未定事件簿》× 废柴猫桌游概念馆线下联动：从机会识别、内容触达、现场转化，到社群承接的完整活动运营实践。</p><div class="tags"><span class="stamp solid">USER OPERATIONS</span><span class="stamp">活动运营</span><span class="stamp">IP 联动</span><span class="stamp">[03]</span></div></div><div class="hero-media"><img src="../assets/img/project-03-01.jpeg" alt="未定事件簿主题线下打卡布置"></div></section>
 
-        <header class="flex justify-between items-center py-3 px-6 border-b border-grid text-xs uppercase tracking-widest font-semibold text-ink/70">
-            <a href="../index.html#timeline" class="flex items-center gap-4 hover:text-accent transition-colors">
-                <div class="w-3 h-3 bg-secondary"></div>
-                <span>周芷琦 · 个人作品集</span>
-            </a>
-            <div class="hidden md:flex items-center gap-2 text-secondary">
-                <iconify-icon icon="solar:target-linear" class="text-base"></iconify-icon>
-            </div>
-            <div class="hidden md:flex items-center gap-4">
-                <span>项目 / 03</span>
-            </div>
-        </header>
+<section data-slide="02"><div class="metrics"><div class="metric"><strong class="display">42万元</strong><span>活动期门店总 GMV</span></div><div class="metric"><strong class="display">25.2万元</strong><span>IP 谷子销售 · 60%</span></div><div class="metric"><strong class="display">16.8万元</strong><span>自有商品销售 · 40%</span></div><div class="metric"><strong class="display">约5倍</strong><span>峰值日客流提升</span></div></div><div class="section"><div class="grid reveal"><div class="kicker">01 / OVERVIEW</div><div class="main"><h2 class="title display">我的职责不止是执行活动，而是设计门店端的用户路径。</h2><div class="cards"><article class="card"><small>CONTEXT</small><h3>18 天项目周期</h3><p>2023.09.28—10.15，覆盖国庆假期与主题活动窗口。</p></article><article class="card"><small>ROLE</small><h3>门店端主导</h3><p>主动提出联动机会，负责方案、触达、陈列、转化与社群运营；外部合作由上级及总部对接。</p></article><article class="card"><small>VALUE</small><h3>兴趣流量商业化</h3><p>用 IP 内容创造到店理由，再把兴趣流量导向联动商品、自有商品与社群。</p></article></div></div></div></div></section>
 
-        <!-- Hero -->
-        <section class="relative border-b border-grid flex flex-col p-8 md:p-16 overflow-hidden">
-            <div class="text-accent font-semibold tracking-widest mb-6 border-b-2 border-secondary inline-block pb-1 self-start">
-                项目 03 · 活动运营
-            </div>
-            <h1 class="font-sans font-bold text-5xl md:text-7xl leading-[0.9] tracking-tight uppercase mb-8 text-secondary">
-                活动运营IP联动
-            </h1>
-            <p class="text-sm md:text-base max-w-2xl leading-relaxed font-semibold mb-12">
-                从市场观察和合作设想到活动落地，独立推动《未定事件簿》IP联动，在12天内实现GMV 42万元。
-            </p>
+<section class="section" id="insight" data-slide="03"><div class="grid reveal"><div class="kicker">02 / PROBLEM & INSIGHT</div><div class="main"><h2 class="title display">空间能留住人，但单一桌游体验不足以持续拉动消费。</h2><div class="split"><div><h3>门店已有优势</h3><ul><li>高人流步行街商场，年轻客群集中</li><li>停留时间长，社交娱乐需求明确</li><li>已有桌游、大学生、情侣和二次元用户基础</li></ul></div><div><h3>需要解决的问题</h3><ul><li>周边店以“即买即走”为主，体验深度不足</li><li>商品购买频次有限，停留未充分转化</li><li>需要兼具话题、稀缺性与传播性的到店理由</li></ul></div></div><div class="note hand">核心命题：如何把“兴趣人群”转化为“到店用户”，再把“到店体验”转化为“多品类消费”？</div></div></div></section>
 
-            <!-- 关键数据 -->
-            <div class="flex flex-wrap gap-4 text-xs font-semibold tracking-widest">
-                                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">GMV 42万</span>
-                    <span class="text-secondary">[03]</span>
-                </div>
-                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">12 DAYS</span>
-                    <span class="text-secondary">[03]</span>
-                </div>
-                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">IP 联动</span>
-                    <span class="text-secondary">[03]</span>
-                </div>
-                <div class="relative border border-grid p-3 flex flex-col items-center justify-center min-w-[100px]">
-                    <span class="text-accent text-lg mb-1 block leading-none">商务推进</span>
-                    <span class="text-secondary">[03]</span>
-                </div>
+<section class="section" id="users" data-slide="04"><div class="grid reveal"><div class="kicker">03 / USERS</div><div class="main"><h2 class="title display">人群交集：年轻化 × 泛二次元 × 社交娱乐 × 兴趣驱动消费。</h2><div class="cards"><article class="card"><small>CORE</small><h3>女性向IP兴趣用户</h3><p>关注角色内容、限定周边与线下打卡；情感连接和稀缺性驱动付费。</p></article><article class="card"><small>SCENE</small><h3>桌游玩家 / 大学生 / 情侣</h3><p>追求社交、娱乐与长时间体验，对新鲜主题活动接受度高。</p></article><article class="card"><small>OPPORTUNITY</small><h3>电影 / 餐饮到访用户</h3><p>已有娱乐消费目的，活动视觉和现场氛围可促成二次停留。</p></article></div></div></div></section>
 
-            </div>
-        </section>
+<section class="section" id="strategy" data-slide="05"><div class="grid reveal"><div class="kicker">04 / MATCH & STRATEGY</div><div class="main"><h2 class="title display">选 IP 不是追热点，而是验证内容、人群与空间能否互相放大。</h2><div class="split"><div><h3>IP 侧：内容与稀缺性</h3><p>女性向内容与商场、门店年轻用户高度重合；用户具备角色周边、限定内容与线下打卡需求。</p></div><div><h3>门店侧：空间与社交体验</h3><p>长停留空间适合合影互动；入口陈列获得自然曝光；桌游、饮品、撸猫等延长体验并带动连带消费。</p></div></div><div class="journey"><article class="step"><b>AWARE</b><h3>内容触达</h3><p>小红书种草、微信通知、海报曝光。</p></article><article class="step"><b>VISIT</b><h3>到店体验</h3><p>主题打卡、官方周边、场景互动。</p></article><article class="step"><b>CONVERT</b><h3>商品转化</h3><p>入口陈列、浏览动线、讲解与组合推荐。</p></article><article class="step"><b>RETAIN</b><h3>社群承接</h3><p>问答互动、优惠券、预告、核销与 UGC。</p></article></div><div class="note">围绕用户设计“触达—到店—转化—沉淀”，让每个运营动作都服务于下一步。</div><figure class="evidence"><div class="media-frame"><img src="../assets/img/project-03-02.jpeg" alt="未定事件簿线下角色立牌布置" data-zoomable></div><figcaption><span>项目证据｜IP 主题打卡点与角色陈列</span><button class="zoom" type="button">放大查看</button></figcaption></figure></div></div></section>
 
-        <!-- PPT 展示区 -->
-        <section class="relative border-b border-grid flex flex-col p-8 md:p-16 bg-grid/10">
-            <header class="flex justify-between items-center mb-12 text-xs font-semibold uppercase tracking-widest border-b border-grid pb-4">
-                <span class="text-accent">// PROJECT DECK</span>
-                <span class="text-secondary">03 / 06</span>
-            </header>
+<section class="section" id="content" data-slide="06"><div class="grid reveal"><div class="kicker">05 / CONTENT</div><div class="main"><h2 class="title display">宣传先回答三个问题：在哪里、什么时候、能获得什么。</h2><p class="intro">小红书负责兴趣种草，微信社群负责精准通知，门店海报负责自然客流转化；共同强调“线下打卡 + 官方周边 + 城市地点”，降低用户决策成本。</p><figure class="evidence" data-carousel data-index="0"><div class="media-frame"><img src="../assets/img/project-03-03.jpeg" alt="门店入口IP主题活动海报" data-zoomable></div><figcaption><span>内容触达证据｜门店海报 / 小红书种草</span><div class="controls"><button class="control prev" type="button" aria-label="上一张">上一张</button><span class="status" aria-live="polite">01 — 02</span><button class="control next" type="button" aria-label="下一张">下一张</button></div><button class="zoom" type="button">放大查看</button></figcaption><script type="application/json">[{"src":"../assets/img/project-03-03.jpeg","alt":"门店入口IP主题活动海报"},{"src":"../assets/img/project-03-04.png","alt":"小红书活动种草内容截图"}]</script></figure></div></div></section>
 
-            <!-- PPT 容器 - 等你给内容 -->
-            <div class="ppt-frame ppt-shadow aspect-video w-full flex flex-col items-center justify-center p-12 text-center">
-                <iconify-icon icon="solar:gallery-wide-linear" class="text-6xl text-ink/30 mb-4"></iconify-icon>
-                <p class="text-sm font-semibold tracking-widest uppercase text-ink/50">
-                    PPT 展示区
-                </p>
-                <p class="text-xs text-ink/40 mt-2 max-w-md">
-                    把项目 PPT 的内容（截图、PDF 转图片、或者直接放文字段落）放在这里即可。
-                </p>
-            </div>
+<section class="section" id="conversion" data-slide="07"><div class="grid reveal"><div class="kicker">06 / CONVERSION</div><div class="main"><h2 class="title display">现场转化的关键，是帮用户更快完成选择。</h2><div class="split"><div><h3>决策支持</h3><ul><li>先判断用户是打卡、买谷还是体验门店</li><li>用角色、品类和预算快速筛选</li><li>推荐成套购买或搭配商品组合</li></ul></div><div><h3>连带消费</h3><ul><li>用入口陈列承接第一眼兴趣</li><li>用销售讲解降低选择成本</li><li>自然介绍桌游、饮品等自有商品</li></ul></div></div><figure class="evidence"><div class="media-frame"><img src="../assets/img/project-03-05.jpeg" alt="门店商品陈列与现场销售空间" data-zoomable></div><figcaption><span>项目证据｜现场销售与商品组合陈列</span><button class="zoom" type="button">放大查看</button></figcaption></figure><div class="note">自有商品贡献 16.8 万元、占活动期门店 GMV 的 40%，说明 IP 流量并未只停留在联动商品。</div></div></div></section>
 
-            <!-- 占位 PPT 卡片 - 之后替换 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 02</span>
-                    <p class="text-xs text-ink/60 mt-2">背景与目标</p>
-                </div>
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 03</span>
-                    <p class="text-xs text-ink/60 mt-2">过程与方法</p>
-                </div>
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 04</span>
-                    <p class="text-xs text-ink/60 mt-2">结果与数据</p>
-                </div>
-                <div class="ppt-frame ppt-shadow aspect-video flex flex-col items-center justify-center p-6">
-                    <span class="text-[10px] text-ink/40 tracking-widest">SLIDE 05</span>
-                    <p class="text-xs text-ink/60 mt-2">复盘与思考</p>
-                </div>
-            </div>
-        </section>
+<section class="section" id="community" data-slide="08"><div class="grid reveal"><div class="kicker">07 / COMMUNITY</div><div class="main"><h2 class="title display">社群不是通知群，而是活动之后仍能持续触达的关系。</h2><div class="community"><article><strong>WEEKLY</strong><h3>桌游 / 二次元问答</h3><p>设置轻量问题，参与回答可获得优惠券，形成固定互动预期。</p></article><article><strong>TRANSACTION</strong><h3>预告 / 到货 / 报名核销</h3><p>及时发布活动和新品信息，把群内兴趣导向到店行动。</p></article><article><strong>CONTENT</strong><h3>朋友圈桌游科普</h3><p>持续介绍桌游玩法，降低新用户理解门槛并建立专业感。</p></article><article><strong>SOCIAL PROOF</strong><h3>UGC / 老带新</h3><p>鼓励晒单分享；邀请朋友到店可获得饮品等轻激励。</p></article></div><figure class="evidence" data-carousel data-index="0"><div class="media-frame"><img src="../assets/img/project-03-06.jpeg" alt="社群互动与优惠券活动截图" data-zoomable></div><figcaption><span>社群运营证据｜问答、内容与线下活动</span><div class="controls"><button class="control prev" type="button" aria-label="上一张">上一张</button><span class="status" aria-live="polite">01 — 04</span><button class="control next" type="button" aria-label="下一张">下一张</button></div><button class="zoom" type="button">放大查看</button></figcaption><script type="application/json">[{"src":"../assets/img/project-03-06.jpeg","alt":"社群互动与优惠券活动截图"},{"src":"../assets/img/project-03-07.jpeg","alt":"火眼金睛桌游社群互动海报"},{"src":"../assets/img/project-03-08.jpeg","alt":"谁是桌游王社群互动海报"},{"src":"../assets/img/project-03-09.jpeg","alt":"谜题挑战社群互动海报"}]</script></figure></div></div></section>
 
-        <!-- 底部 -->
-        <footer class="border-t border-grid py-4 px-6 flex justify-between items-center text-[10px] font-semibold uppercase tracking-widest text-ink bg-base z-30">
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 bg-secondary"></div>
-                <span>PEOPLE. STORIES. IDEAS. GROWTH.</span>
-            </div>
-            <a href="../index.html#timeline" class="text-accent hover:text-ink transition-colors">
-                ← 返回主页
-            </a>
-            <div class="flex items-center gap-4">
-                <span>© 2026 周芷琦</span>
-                <div class="w-2 h-2 bg-secondary"></div>
-            </div>
-        </footer>
+<section class="section" data-slide="09"><div class="grid reveal"><div class="kicker">08 / SEGMENTATION</div><div class="main"><h2 class="title display">用户分层让同一场活动产生不同的下一步。</h2><div class="journey"><article class="step"><b>01</b><h3>潜在兴趣用户</h3><p>用主题视觉、活动时间和稀缺周边强化到店理由。</p></article><article class="step"><b>02</b><h3>活动到店用户</h3><p>用讲解、爆品陈列和组合推荐促进首次购买。</p></article><article class="step"><b>03</b><h3>购买用户</h3><p>引导进入社群，用活动与桌游内容持续触达。</p></article><article class="step"><b>04</b><h3>核心社群用户</h3><p>通过问答、优惠券、UGC 与老带新提升粘性。</p></article></div><figure class="evidence"><div class="media-frame"><img src="../assets/img/project-03-10.jpeg" alt="门店线下社群活动现场" data-zoomable></div><figcaption><span>项目证据｜核心用户线下社交与再次到店</span><button class="zoom" type="button">放大查看</button></figcaption></figure></div></div></section>
 
-    </main>
+<section class="section" id="review" data-slide="10"><div class="grid reveal"><div class="kicker">09 / REVIEW</div><div class="main"><h2 class="title display">复盘不是包装成功，而是明确下一次要补上的数据链路。</h2><div class="split"><div><h3>当时的不足</h3><ul><li>GMV 结构依赖经营反馈和估算</li><li>活动用户标签不完整，难追踪不同来源</li><li>社群核销、复购和再次到店缺少完整口径</li></ul></div><div><h3>如果重做</h3><ul><li>入群记录来源、兴趣 IP 和到店状态</li><li>设置活动专属券码，追踪领取—核销—购买</li><li>活动后按未到店、已到店、已购买分层触达</li></ul></div></div><div class="note hand">诚实识别数据与留存短板，才能把一次活动变成下一次增长的基础设施。</div></div></div></section>
 
-    <script src="../assets/js/vendor.js"></script>
-    <script src="../assets/js/iconify.js"></script>
-    <script src="../assets/js/tailwind-config.js"></script>
-</body>
-</html>
+<section class="result" data-slide="11"><div class="grid reveal"><div class="kicker">10 / CAPABILITY</div><div class="main"><h2 class="title display">把用户洞察翻译成可落地的运营动作。</h2><div class="result-grid"><div><strong class="display">01</strong><span>用户洞察：从场景、行为与社区内容识别真实需求，不以热点代替人群匹配。</span></div><div><strong class="display">02</strong><span>策略与转化：围绕用户旅程设计触达、体验、陈列、讲解和组合推荐。</span></div><div><strong class="display">03</strong><span>社群与迭代：建立持续触达关系，并用复盘补齐标签、核销与复购链路。</span></div></div><div class="note">我在总部、上级与店长支持下主导门店端执行，也清晰理解合作与职责边界。</div><a class="final-link" href="../index.html#timeline"><iconify-icon icon="solar:arrow-left-linear"></iconify-icon>返回作品集 / VIEW ALL PROJECTS</a></div></div></section>
+<footer class="topbar"><span class="meta">CASE STUDY · USER OPERATIONS</span><span class="index">03 / 06</span></footer>
+</main>
+<div class="lightbox" id="evidence-lightbox" role="dialog" aria-modal="true" aria-label="项目证据大图"><button type="button" aria-label="关闭大图">×</button><img src="" alt=""></div>
+<script src="../assets/js/vendor.js"></script><script>
+document.addEventListener('DOMContentLoaded',()=>{const box=document.querySelector('#evidence-lightbox'),boxImg=box.querySelector('img'),close=box.querySelector('button');let opener=null;const open=(img)=>{opener=document.activeElement;boxImg.src=img.src;boxImg.alt=img.alt;box.classList.add('open');close.focus()};const shut=()=>{box.classList.remove('open');boxImg.src='';if(opener)opener.focus()};document.querySelectorAll('.evidence').forEach(fig=>{const img=fig.querySelector('img'),zoom=fig.querySelector('.zoom');zoom?.addEventListener('click',()=>open(img));img.addEventListener('click',()=>{if(fig.hasAttribute('data-carousel')){fig.querySelector('.next').click()}else open(img)});if(!fig.hasAttribute('data-carousel'))return;const items=JSON.parse(fig.querySelector('script').textContent),status=fig.querySelector('.status');let i=0;const show=(n)=>{i=(n+items.length)%items.length;img.src=items[i].src;img.alt=items[i].alt;status.textContent=String(i+1).padStart(2,'0')+' — '+String(items.length).padStart(2,'0')};fig.querySelector('.prev').addEventListener('click',()=>show(i-1));fig.querySelector('.next').addEventListener('click',()=>show(i+1));fig.tabIndex=0;fig.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')show(i-1);if(e.key==='ArrowRight')show(i+1)})});close.addEventListener('click',shut);box.addEventListener('click',e=>{if(e.target===box)shut()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&box.classList.contains('open'))shut()});const nodes=document.querySelectorAll('.reveal');if(matchMedia('(prefers-reduced-motion: reduce)').matches){nodes.forEach(n=>n.classList.add('visible'))}else{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.08});nodes.forEach(n=>io.observe(n))}});
+</script></body></html>
