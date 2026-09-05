@@ -161,6 +161,42 @@ def validate_homepage(html):
     ]
     assert len(watermarks) == 1 and text_content(watermarks[0]) == "06+ STORIES", "six-project story count"
 
+    homepage_copy = text_content(root)
+    for required in [
+        "敏锐观察", "解决问题", "持续成长", "来看看我能为你做什么", "ABOUT ME", "Agent Name：周芷琦",
+        "峰时(工作日在岗时间)：语音识别，Key:呼叫名字",
+        "谷时(其余时间):Phone call，Key:见底部联系方式",
+        "调用方式", "支持API、飞书、微信等多平台调用",
+        "数据分析（Excel/VLOOKUP/SQL）", "视觉产出（Photoshop /Figma/剪映）",
+        "AI工具（Claude/codex/workbuddy）等", "MY STORY", "成长轨迹",
+        "用户运营 · 策略与增长", "产品网页· Vibe Coding毕业项目",
+        "数字人文 · 跨文化表达", "活动运营 · IP 商业化落地",
+        "定位用户痛点，带领团队完成全周期部署上线。",
+        "香港岭南大学研究生，专注数字媒介与语料库分析。",
+        "结合人文洞察，探索语言在数字化产品中的灵感碰撞。",
+        "项目管理与执行", "推动召回率提升", "7.8%", "订单量提升", "5.4%",
+        "18天", "GMV", "42万元", "点击下列项目查看详情",
+        "感谢你看到这里。", "weixin", "MoffyAI", "运营 · 创意 · AI实践",
+        "调用此人输出伴手礼诗歌一篇", "领取好运~（不白来嗷）",
+    ]:
+        assert required in homepage_copy, f"homepage refreshed copy: {required}"
+
+    for removed in [
+        "MY JOURNEY", "Curious by nature.", "RESEARCH • CREATE • GROW",
+        "观察 · 理解 · 创造", "很感谢你看到这里。", "SEND ME AN EMAIL",
+        "调味品 (适量蘸取)",
+    ]:
+        assert removed not in homepage_copy, f"homepage removed copy: {removed}"
+
+    assert "从语言与跨文化研究出发，我逐渐走向用户洞察" not in homepage_copy, "removed story intro"
+    qr_images = [
+        element for element in find_elements(root, "img")
+        if element.attrs.get("src") == "assets/img/homepage-wechat-qr.png"
+    ]
+    assert len(qr_images) == 1 and qr_images[0].attrs.get("alt"), "homepage WeChat QR"
+    invites = [element for element in descendants(root) if has_classes(element, "hero-invite")]
+    assert len(invites) == 2 and all(has_classes(element, "border-b-2") for element in invites), "hero invitation underlines"
+
 
 def normalize_legacy_page(html):
     normalized = html.lstrip("\ufeff").replace("\r\n", "\n").replace("\r", "\n")
@@ -305,12 +341,20 @@ def assert_rejects_mutation(name, expected_message, check):
 
 
 INDEX = (ROOT / "index.html").read_text(encoding="utf-8-sig")
+MAIN_CSS = (ROOT / "assets" / "css" / "main.css").read_text(encoding="utf-8-sig")
 PAGES = {
     number: (ROOT / "pages" / f"project-{number}.html").read_text(encoding="utf-8-sig")
     for number in EXPECTED_NUMBERS
 }
 
 validate_homepage(INDEX)
+for selector in [
+    ".portfolio-serif", ".portfolio-latin", ".hero-invite", ".agent-copy",
+    ".story-item-copy", ".story-stamp", ".grid-cols-\\[32px_1fr\\]",
+    ".left-\\[55px\\]", ".left-\\[-1px\\]", ".text-\\[9px\\]",
+    ".md\\:p-12", ".md\\:pr-24", ".xl\\:p-14", ".xl\\:text-6xl",
+]:
+    assert selector in MAIN_CSS, f"homepage static CSS selector: {selector}"
 for number, title in zip(EXPECTED_NUMBERS, EXPECTED_TITLES):
     validate_project_page(PAGES[number], number, title, LEGACY_PAGE_FINGERPRINTS.get(number))
 
